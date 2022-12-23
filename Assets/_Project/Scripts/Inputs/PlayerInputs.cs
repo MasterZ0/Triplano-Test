@@ -34,7 +34,7 @@ namespace TriplanoTest.Inputs
             controls.Player.Look.started += OnLook;
         }
 
-        private void OnLook(CallbackContext ctx) => OnMoveCamera(ctx.ReadValue<Vector2>());
+        private void OnLook(CallbackContext ctx) => OnMoveCamera?.Invoke(ctx.ReadValue<Vector2>());
 
         private void OnJumpDown(CallbackContext _)
         {

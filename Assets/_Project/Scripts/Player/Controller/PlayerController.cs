@@ -26,8 +26,11 @@ namespace TriplanoTest.Player
 
         private void Awake()
         {
-            playerInputs = new PlayerInputs();
+            playerPhysics.Init(this);
+            playerAnimator.Init(this);
+            playerCamera.Init(this);
 
+            playerInputs = new PlayerInputs();
             stateMachine = PlayerFSM.Create<IdlePS>(this);
         }
 
