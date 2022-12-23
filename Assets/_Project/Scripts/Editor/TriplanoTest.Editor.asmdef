@@ -1,0 +1,22 @@
+{
+    "name": "TriplanoTest.Editor",
+    "rootNamespace": "TriplanoTest.Editor",
+    "references": [
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:69448af7b92c7f342b298e06a37122aa",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:88acd8245b5b32a4487d3994bba3e0e3",
+        "GUID:3f813859bdfe29f46bfe1afe0e598cf9"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
