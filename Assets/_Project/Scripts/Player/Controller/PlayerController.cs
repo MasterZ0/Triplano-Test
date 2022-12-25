@@ -13,11 +13,13 @@ namespace TriplanoTest.Player
         [SerializeField] private PlayerPhysics playerPhysics;
         [SerializeField] private PlayerAnimator playerAnimator;
         [SerializeField] private PlayerCamera playerCamera;
+        [SerializeField] private PlayerSFX playerSFX;
 
         public bool DebugMode => debugMode;
         public PlayerData Data => GameData.Player;
         public PlayerPhysics Physics => playerPhysics;
         public PlayerAnimator Animator => playerAnimator;
+        public PlayerSFX SFX => playerSFX;
         public PlayerCamera Camera => playerCamera;
         public PlayerInputs Inputs => playerInputs;
 
@@ -29,6 +31,7 @@ namespace TriplanoTest.Player
             playerPhysics.Init(this);
             playerAnimator.Init(this);
             playerCamera.Init(this);
+            playerSFX.Init(this);
 
             playerInputs = new PlayerInputs();
             stateMachine = PlayerFSM.Create<IdlePS>(this);
@@ -39,6 +42,16 @@ namespace TriplanoTest.Player
             stateMachine.Update();
             playerPhysics.Update();
             playerCamera.Update();
+        }
+
+        private void OnDrawGizmos()
+        {
+            playerPhysics.DrawGizmos();
+
+            if (Application.isPlaying)
+            {
+                stateMachine.DrawGizmos();
+            }
         }
     }
 }

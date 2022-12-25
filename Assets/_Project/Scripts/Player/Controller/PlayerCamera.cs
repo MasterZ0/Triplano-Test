@@ -44,13 +44,13 @@ namespace TriplanoTest.Player
             {
                 if (!XLocked)
                 {
-                    xRotation -= look.y * Settings.Sensitivity;
+                    xRotation -= look.y * Settings.MouseSensitivity;
                     xRotation = Mathf.Clamp(xRotation, Settings.CameraRangeRotation.x, Settings.CameraRangeRotation.y);
                 }
 
                 if (!YLocked)
                 {
-                    yRotation += look.x * Settings.Sensitivity;
+                    yRotation += look.x * Settings.MouseSensitivity;
                     yRotation = ClampAngle(yRotation);
                 }
                 else

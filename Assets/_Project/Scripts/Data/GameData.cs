@@ -11,10 +11,14 @@ namespace TriplanoTest.Data
     {
         [Header("Game Data")]
         [SerializeField] private PlayerData player;
+        [SerializeField] private GeneralData general;
 
         public static PlayerData Player => Instance.player;
 
         public static GameData Instance { get; private set; }
+        public static GeneralData General => Instance.general;
+
+        private void OnValidate() => Initialize();
 
         public void Initialize()
         {

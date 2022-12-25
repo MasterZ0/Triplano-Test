@@ -2,6 +2,8 @@
 using System;
 using TriplanoTest.Data;
 using TriplanoTest.Shared.Utils;
+using TriplanoTest.Gameplay;
+using System.Linq;
 
 namespace TriplanoTest.Player
 {
@@ -13,10 +15,14 @@ namespace TriplanoTest.Player
     {
         [Header("Layers")]
         [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private LayerMask interactableLayer;
 
         [Header("Components")]
         [SerializeField] private CharacterController characterController;
-        [SerializeField] private Transform groundCheck;
+        [SerializeField] private Transform groundCheckPoint;
+        [SerializeField] private Transform interactableCheckPoint;
+
+        private Vector3 velocity;
 
         private float gravityScale;
         private float moveSpeed;
@@ -24,19 +30,44 @@ namespace TriplanoTest.Player
         private float targetYRotation;
         private float rotationVelocity;
 
-        #region Properties and Const
-        public Vector3 Velocity => characterController.velocity;
+        public IPushable CurrentPushable { get; private set; }
+        public Vector3 Position => characterController.transform.position;
 
-        private Transform Transform => characterController.transform;
-        private PlayerData Data => Controller.Data;
+        public Vector3 Velocity => characterController.velocity;
+        public Transform Transform => characterController.transform;
+        private PlayerData Data => GameData.Player;
         private float Weight => Data.Mass * Physics.gravity.y;
         private float EulerYCamera => Controller.Camera.CameraTarget.eulerAngles.y;
-        #endregion
+
+        internal bool TryInteract()
+        {
+            CurrentPushable = null;
+            Collider[] colliders = Physics.OverlapSphere(interactableCheckPoint.position, Data.InteractCheckRadius, interactableLayer);
+
+            foreach (Collider col in colliders)
+            {
+                if (col.attachedRigidbody && col.attachedRigidbody.TryGetComponent(out IPushable interactable))
+                {
+                    CurrentPushable = interactable;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool CheckGround()
+        {
+            return Physics.CheckSphere(groundCheckPoint.position, Data.GroundCheckRadius, groundLayer);
+        }
+
+        public void Jump(float jumpHeight)
+        {
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Weight);
+        }
 
         public void SetGravityScale(float gravityScale) => this.gravityScale = gravityScale;
 
-
-        #region Public methods
         internal void FixedMove(float speed)
         {
             // Movement
@@ -65,9 +96,48 @@ namespace TriplanoTest.Player
             }
             else
             {
-                float yRotation = Controller.Inputs.Look.x * Data.Sensitivity + Transform.eulerAngles.y;
+                float yRotation = Controller.Inputs.Look.x * Data.MouseSensitivity + Transform.eulerAngles.y;
                 Transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
             }
+        }
+
+        private bool acceleration;
+
+        internal void MoveTo(Vector3 targetPoint, Vector3 lookAt, float speed)
+        {
+            // Direction the body will move
+            Vector3 direction = (targetPoint - Transform.position).normalized;
+            targetYRotation = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+            // Look at target
+            float targetYAngle = Mathf.Atan2(lookAt.x, lookAt.z) * Mathf.Rad2Deg;
+            float yRotation = Mathf.SmoothDampAngle(Transform.eulerAngles.y, targetYAngle, ref rotationVelocity, Data.RotationSmoothTime);
+            Transform.rotation = Quaternion.Euler(0f, yRotation, 0f);
+
+            // Limits the player's speed so that he doesn't go over the desired point. Ignore Y distance
+            var distance = targetPoint - Transform.position;
+            distance.y = 0f;
+            float speed2 = distance.magnitude / Time.fixedDeltaTime;
+            moveSpeed = Mathf.Min(speed, speed2);
+
+            acceleration = false;
+        }
+
+        internal void MovePush()
+        {
+            Vector2 direction = Controller.Inputs.Move;
+
+            if (direction.magnitude > 1)
+            {
+                direction = direction.normalized;
+            }
+
+            moveSpeed = Data.MoveSpeedPushing;
+            targetYRotation = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + EulerYCamera;
+
+            Vector3 targetDirection = Quaternion.Euler(0f, targetYRotation, 0f) * Vector3.forward;
+            CurrentPushable.Push(targetDirection * moveSpeed * Time.fixedDeltaTime);
+            acceleration = false;
         }
 
         internal void Move(float speed)
@@ -92,31 +162,13 @@ namespace TriplanoTest.Player
 
         internal void Update()
         {
+            UpdateAccelerationSpeed();
             UpdateVerticalVelocity();
-            float speed = GetAccelerationSpeed(moveSpeed);
-
-            // Movement X Z
-            Vector3 targetDirection = Quaternion.Euler(0f, targetYRotation, 0f) * Vector3.forward;
-            Vector3 velocity = targetDirection.normalized * speed;
-            velocity.y = verticalVelocity;
-
             characterController.Move(velocity * Time.fixedDeltaTime);
-
-            moveSpeed = 0f;
         }
 
-        public void Jump(float jumpHeight) // TODO: What is -2?
-        {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * Weight);
-        }
+        // ---------- Private Methods
 
-        public bool CheckGround()
-        {
-            return Physics.CheckSphere(groundCheck.position, Data.GroundCheckRadius, groundLayer);
-        }
-        #endregion
-
-        #region Private Methods
         /// <summary> Gravity and Jump Velocity </summary>
         private void UpdateVerticalVelocity()
         {
@@ -132,27 +184,45 @@ namespace TriplanoTest.Player
             {
                 verticalVelocity = maxFallingVelocity;
             }
+
+            velocity.y = verticalVelocity;
         }
 
-        private float GetAccelerationSpeed(float targetSpeed) // TODO: acceleration = 6, deceleration = 3
+        private void UpdateAccelerationSpeed()
         {
-            // a reference to the players current horizontal velocity
-            float currentHorizontalSpeed = new Vector3(Velocity.x, 0f, Velocity.z).magnitude;
+            // Reset state speed
+            float speed;
 
-            //float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
-            float inputMagnitude = 1f;
-            float transition = targetSpeed > currentHorizontalSpeed ? Data.Acceleration : Data.Deceleration;
+            if (acceleration)
+            {
+                // Get the player's speed in a plane
+                float currentHorizontalSpeed = new Vector3(Velocity.x, 0f, Velocity.z).magnitude;
 
-            return Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, transition * Time.fixedDeltaTime);
+                // Get Acceleration or Deceleration transition
+                float transition = moveSpeed > currentHorizontalSpeed ? Data.Acceleration : Data.Deceleration;
+
+                // Interpolate between current horizontal speed and target speed
+                speed = Mathf.Lerp(currentHorizontalSpeed, moveSpeed, transition * Time.fixedDeltaTime);
+                speed = Mathf.Min(moveSpeed, speed);
+            }
+            else
+            {
+                speed = moveSpeed;
+                acceleration = true;
+            }
+
+            moveSpeed = 0f;
+
+            // Update forward velocity
+            Vector3 targetDirection = Quaternion.Euler(0f, targetYRotation, 0f) * Vector3.forward;
+            velocity = targetDirection.normalized * speed;
         }
-        #endregion
 
-        #region Gizmos
         public void DrawGizmos()
         {
-            Gizmos.DrawWireSphere(groundCheck.position, Data.GroundCheckRadius);
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(groundCheckPoint.position, Data.GroundCheckRadius);
+            Gizmos.DrawWireSphere(interactableCheckPoint.position, Data.InteractCheckRadius);
         }
-        #endregion
-
     }
 }

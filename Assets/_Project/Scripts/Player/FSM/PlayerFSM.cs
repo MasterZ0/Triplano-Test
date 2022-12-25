@@ -6,7 +6,7 @@ namespace TriplanoTest.Player.FSM
     public class PlayerFSM : FiniteStateMachine
     {
         public PlayerController Controller { get; private set; }
-        public string OverrideIdle { get; set; }
+        public bool IsJumping { get; set; }
 
         protected PlayerFSM(PlayerController controller) : base(typeof(PlayerState))
         {

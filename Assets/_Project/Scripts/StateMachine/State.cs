@@ -38,5 +38,20 @@
         {
             StateMachine = controller as T;
         }
+
+        protected new void SwitchState<U>() where U : State, new()
+        {
+            StateMachine.SwitchState<U>();
+        }
+
+        protected new bool LastStateIs<U>() where U : State
+        {
+            return StateMachine.LastState is U;
+        }
+
+        protected new bool NextStateIs<U>() where U : State
+        {
+            return StateMachine.NextState is U;
+        }
     }
 }

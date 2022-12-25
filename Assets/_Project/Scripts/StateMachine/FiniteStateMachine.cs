@@ -59,6 +59,11 @@ namespace TriplanoTest.StateMachine
             CurrentState.EnterState();
         }
 
+        public void DrawGizmos()
+        {
+            CurrentState.DrawGizmos();
+        }
+
         private State GetState<T>() where T : State, new()
         {
             return states.First(s => s.GetType() == typeof(T));

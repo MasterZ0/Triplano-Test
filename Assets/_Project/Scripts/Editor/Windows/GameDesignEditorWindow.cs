@@ -3,12 +3,18 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using TriplanoTest.Shared;
 using TriplanoTest.Data;
+using System.Reflection;
+using Object = UnityEngine.Object;
+using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace TriplanoTest.AppEditor
 {
     public class GameDesignEditorWindow : EditorWindow
     {
-        private GameData gameSettings;
+        private List<ScriptableObject> dataList;
+
+        private GameData gameData;
         private Object selection;
         private Editor selectionEditor;
 
@@ -42,24 +48,38 @@ namespace TriplanoTest.AppEditor
 
         private void OnEnable()
         {
-            gameSettings = AssetDatabase.LoadAssetAtPath<GameData>(ProjectPath.GameDataAsset);
+            gameData = AssetDatabase.LoadAssetAtPath<GameData>(ProjectPath.GameDataAsset);
             windowMenu.width = 330;
 
-            selection = gameSettings;
+            selection = gameData;
             selectionEditor = Editor.CreateEditor(selection);
+
+            dataList = new List<ScriptableObject>();
+            FieldInfo[] fields = gameData.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+            foreach (FieldInfo field in fields)
+            {
+                if (field.GetValue(gameData) is ScriptableObject scriptableObject)
+                {
+                    dataList.Add(scriptableObject);
+                }
+            }
         }
 
-        private void DrawSizeBarContent()
+        private void DrawSideBarContent()
         {
-            DrawBtn(gameSettings);
-            DrawBtn(GameData.Player);
+            DrawBtn(gameData);
+
+            foreach (ScriptableObject scriptableObject in dataList)
+            {
+                DrawBtn(scriptableObject);
+            }
         }
 
         private void DrawBtn(ScriptableObject asset)
         {
             string name = ObjectNames.NicifyVariableName(asset.name);
             GUI.enabled = asset != selection;
-            if (GUILayout.Button(name))
+            if (EditorComponents.DrawButton(name, ButtonStyle.FlatButtonStyle, TextAnchor.MiddleLeft))
             {
                 selection = asset;
                 selectionEditor = Editor.CreateEditor(asset);
@@ -69,11 +89,21 @@ namespace TriplanoTest.AppEditor
 
         private void DrawMainContent()
         {
-            contentScrool = EditorGUILayout.BeginScrollView(contentScrool, GUIStyle.none, GUI.skin.verticalScrollbar);
+            GUILayout.BeginVertical(GUILayout.ExpandHeight(true));
+            {
+                GUILayout.BeginHorizontal(EditorStyles.toolbar);
+                {
+                    GUILayout.FlexibleSpace();
+                    if (EditorComponents.DrawIconButton(IconType.Lamp, ButtonStyle.Toolbar, GUILayout.Width(30)))
+                    {
+                        EditorGUIUtility.PingObject(selection);
+                    }
+                }
+                GUILayout.EndHorizontal();
 
-            selectionEditor.DrawDefaultInspector();
-
-            EditorGUILayout.EndScrollView();
+                EditorComponents.DrawContentWithScroll(ref contentScrool, () => selectionEditor.DrawDefaultInspector());
+            }
+            GUILayout.EndVertical();
         }
 
         #region Editor Window Areas
@@ -85,7 +115,7 @@ namespace TriplanoTest.AppEditor
             BeginResizableArea();
             SideBar();
             EndResizableArea();
-
+            
             DrawContent();
             EditorGUILayout.EndHorizontal();
         }
@@ -93,13 +123,13 @@ namespace TriplanoTest.AppEditor
         private void SideBar()
         {
             // Side bar Start
-            EditorGUILayout.BeginVertical("box", GUILayout.MaxWidth(windowMenu.width), GUILayout.ExpandWidth(true));
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.MaxWidth(windowMenu.width), GUILayout.ExpandWidth(true));
             {
                 // Hierarchy Start
                 EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
                 {
                     sideScrolll = EditorGUILayout.BeginScrollView(sideScrolll, GUIStyle.none, GUI.skin.verticalScrollbar);
-                    DrawSizeBarContent();
+                    DrawSideBarContent();
 
                     EditorGUILayout.EndScrollView();
                 }
@@ -110,10 +140,10 @@ namespace TriplanoTest.AppEditor
 
         private void DrawContent()
         {
-            EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.MaxHeight(position.width - windowMenu.width));
+            EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.MaxWidth   (position.width - windowMenu.width));
             if (selection != null)
             {
-                EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true));
+                EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
                 {
                     DrawMainContent();
                 }
@@ -194,4 +224,5 @@ namespace TriplanoTest.AppEditor
         }
         #endregion
     }
+
 }

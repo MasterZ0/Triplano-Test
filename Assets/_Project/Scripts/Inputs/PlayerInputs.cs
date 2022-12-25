@@ -11,19 +11,16 @@ namespace TriplanoTest.Inputs
         public event Action OnJumpPressed;
         public event Action OnInteractPressed;
         public event Action OnInteractReleased;
-        public event Action OnPrimarySkillPressed;
-        public event Action OnPrimarySkillReleased;
-        public event Action OnSecondarySkillPressed;
-        public event Action OnSecondarySkillReleased;
-
-        public bool MovePressed => Move != Vector2.zero;
-        public bool JumpPressed { get; private set; }
-        public bool InteractPressed { get; private set; }
-        public bool PrimarySkillPressed { get; private set; }
-        public bool SecondarySkillPressed { get; private set; }
+        public event Action OnCrouchPressed;
+        public event Action OnCrouchReleased;
 
         public Vector2 Move => controls.Player.Move.ReadValue<Vector2>();
         public Vector2 Look => controls.Player.Look.ReadValue<Vector2>();
+
+        public bool IsMovePressed => Move != Vector2.zero;
+        public bool IsJumpPressed { get; private set; }
+        public bool IsInteractPressed { get; private set; }
+        public bool IsCrouchPressed { get; private set; }
 
         public PlayerInputs(bool enable = true) : base(enable)
         {
@@ -31,6 +28,9 @@ namespace TriplanoTest.Inputs
             controls.Player.Jump.canceled += OnJumpUp;
             controls.Player.Interact.started += OnInteractDown;
             controls.Player.Interact.canceled += OnInteractUp;
+            controls.Player.Crouch.started += OnCrouchDown;
+            controls.Player.Crouch.canceled += OnCrouchUp;
+
             controls.Player.Look.started += OnLook;
         }
 
@@ -38,26 +38,38 @@ namespace TriplanoTest.Inputs
 
         private void OnJumpDown(CallbackContext _)
         {
-            JumpPressed = true;
+            IsJumpPressed = true;
             OnJumpPressed?.Invoke();
         }
 
         private void OnJumpUp(CallbackContext _)
         {
-            JumpPressed = false;
+            IsJumpPressed = false;
             OnJumpReleased?.Invoke();
         }
 
         private void OnInteractDown(CallbackContext _)
         {
-            InteractPressed = true;
+            IsInteractPressed = true;
             OnInteractPressed?.Invoke();
         }
 
         private void OnInteractUp(CallbackContext _)
         {
-            InteractPressed = false;
+            IsInteractPressed = false;
             OnInteractReleased?.Invoke();
+        }
+
+        private void OnCrouchDown(CallbackContext _)
+        {
+            IsCrouchPressed = true;
+            OnCrouchPressed?.Invoke();
+        }
+
+        private void OnCrouchUp(CallbackContext _)
+        {
+            IsCrouchPressed = false;
+            OnCrouchReleased?.Invoke();
         }
     }
 }

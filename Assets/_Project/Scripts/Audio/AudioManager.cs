@@ -88,7 +88,7 @@ namespace TriplanoTest.Audio
         {
             foreach (SoundInstance instance in pauseSoundsList.ToList())
             {
-                if (instance.SoundFinished())
+                if (instance.SoundFinished)
                 {
                     pauseSoundsList.Remove(instance);
                 }

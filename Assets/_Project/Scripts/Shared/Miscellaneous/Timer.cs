@@ -1,31 +1,32 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TriplanoTest.Shared {
-    
-    public class Timer {
+namespace TriplanoTest.Shared
+{
+    public class Timer
+    {
+        public event Action OnCompleted;
 
-        public float Progression => Counter / timeInSeconds;
-        public event Action OnCompleted = delegate {  };
-        public bool IsCompleted => Counter >= timeInSeconds;
+        public float Progression => Counter / timeForEvent;
+        public bool IsCompleted => Counter >= timeForEvent;
         public float Counter { get; private set; }
-        
-        private float timeInSeconds;
 
-        public void Set(float time) {
-            timeInSeconds = time;
+        private float timeForEvent;
+
+        public void Reset(float timeToCallEvent = 0f)
+        {
+            timeForEvent = timeToCallEvent;
             Counter = 0f;
         }
 
-        public void FixedTick() 
+        public void FixedTick()
         {
-            if (IsCompleted) 
-                return;
+            bool wasCompleted = IsCompleted;
 
-            Counter += Time.fixedDeltaTime; 
-            
-            if (IsCompleted)            
-                OnCompleted();            
+            Counter += Time.fixedDeltaTime;
+
+            if (!wasCompleted && IsCompleted)
+                OnCompleted?.Invoke();
         }
     }
 }

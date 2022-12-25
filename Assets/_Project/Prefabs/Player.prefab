@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundCheckPoint
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -143,6 +143,7 @@ Transform:
   m_Children:
   - {fileID: 6654078620626716651}
   - {fileID: 1175221410368565528}
+  - {fileID: 3031912380738926630}
   m_Father: {fileID: 4542955718682702478}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -199,16 +200,24 @@ MonoBehaviour:
     groundLayer:
       serializedVersion: 2
       m_Bits: 64
+    interactableLayer:
+      serializedVersion: 2
+      m_Bits: 4160
     characterController: {fileID: 5912525030539846611}
-    groundCheck: {fileID: 1175221410368565528}
+    groundCheckPoint: {fileID: 1175221410368565528}
+    interactableCheckPoint: {fileID: 3031912380738926630}
   playerAnimator:
     animator: {fileID: 3221184163955542366}
-    idle: Idle
-    walk: Walk
-    jump: Jump
-    crouch: Crouch
+    idleState: Idle
+    walkState: Run
+    jumpState: Jump
+    fallingState: Falling_Loop
+    crouchState: Crouch
   playerCamera:
     cameraTarget: {fileID: 6654078620626716651}
+  playerSFX:
+    jumpSFX: {fileID: 11400000, guid: 2b9ec7a09c6effa4589e362928e6bb2f, type: 2}
+    landingSFX: {fileID: 11400000, guid: b30f2d1b5c4dbb2498c8bd42fa6279a6, type: 2}
 --- !u!54 &2081019049191179555
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -220,8 +229,8 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
@@ -507,6 +516,37 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
+--- !u!1 &4790856697390687837
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3031912380738926630}
+  m_Layer: 0
+  m_Name: InteractableCheckPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3031912380738926630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4790856697390687837}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6711549443491254882}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7856656940733821890
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,7 +612,7 @@ MonoBehaviour:
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 64
-  IgnoreTag: Untagged
+  IgnoreTag: 
   CameraRadius: 0.06
   DampingIntoCollision: 0
   DampingFromCollision: 0
