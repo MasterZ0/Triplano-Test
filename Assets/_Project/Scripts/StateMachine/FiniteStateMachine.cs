@@ -13,11 +13,39 @@ namespace TriplanoTest.StateMachine
 
         private readonly List<State> states = new();
 
+        /// <summary>
+        /// Ex: new FiniteStateMachine(typeof(BaseState));
+        /// </summary>
         protected FiniteStateMachine(Type stateBaseType)
         {
             IEnumerable<Type> types = Assembly.GetAssembly(stateBaseType).GetTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(stateBaseType));
 
+            CreateAndSetInstances(types);
+        }
+
+        /// <summary>
+        /// Ex: new FiniteStateMachine(typeof(State1), typeof(State2), etc...);
+        /// </summary>
+        public FiniteStateMachine(params Type[] types)
+        {
+            CreateAndSetInstances(types);
+        }
+
+        /// <summary>
+        /// Ex: new FiniteStateMachine(stateList);
+        /// </summary>
+        public FiniteStateMachine(IEnumerable<State> states)
+        {
+            foreach (State state in states)
+            {
+                state.SetupState(this);
+                this.states.Add(state);
+            }
+        }
+
+        private void CreateAndSetInstances(IEnumerable<Type> types)
+        {
             foreach (Type type in types)
             {
                 State state = Activator.CreateInstance(type) as State;
@@ -26,12 +54,12 @@ namespace TriplanoTest.StateMachine
             }
         }
 
-        /// <typeparam name="T">First State</typeparam>
-        public static FiniteStateMachine Create<T>() where T : State, new()
+        /// <typeparam name="TBase">Base State</typeparam>
+        /// <typeparam name="TFirst">First State</typeparam>
+        public static FiniteStateMachine Create<TBase, TFirst>() where TBase : State where TFirst : TBase, new()
         {
-            Type stateType = typeof(T);
-            FiniteStateMachine stateMachine = new(stateType);
-            stateMachine.SetFirstState<T>();
+            FiniteStateMachine stateMachine = new FiniteStateMachine(typeof(TBase));
+            stateMachine.SetFirstState<TFirst>();
             return stateMachine;
         }
 
@@ -39,11 +67,6 @@ namespace TriplanoTest.StateMachine
         {
             CurrentState = GetState<T>();
             CurrentState.EnterState();
-        }
-
-        public void Update()
-        {
-            CurrentState.UpdateState();
         }
 
         public virtual void SwitchState<T>() where T : State, new()
@@ -59,10 +82,9 @@ namespace TriplanoTest.StateMachine
             CurrentState.EnterState();
         }
 
-        public void DrawGizmos()
-        {
-            CurrentState.DrawGizmos();
-        }
+        public void Update() => CurrentState.UpdateState();
+
+        public void DrawGizmos() => CurrentState.DrawGizmos();
 
         private State GetState<T>() where T : State, new()
         {

@@ -1,0 +1,17 @@
+{
+    "name": "TriplanoTest.AI",
+    "rootNamespace": "TriplanoTest.AI",
+    "references": [
+        "GUID:88acd8245b5b32a4487d3994bba3e0e3",
+        "GUID:3f813859bdfe29f46bfe1afe0e598cf9"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

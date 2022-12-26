@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1451f41327fd97c4c8aaacf9ee48b348, type: 3}
-  m_Name: Guard_Medium
+  m_Script: {fileID: 11500000, guid: d58d284c155035c48b211b112aabf4d2, type: 3}
+  m_Name: GameOver
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  waitTime: 3
-  rotationSpeed: 6
+  description: 

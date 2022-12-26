@@ -1,4 +1,5 @@
 using TriplanoTest.Shared;
+using TriplanoTest.Shared.Design;
 using UnityEngine;
 
 namespace TriplanoTest.Data
@@ -7,7 +8,7 @@ namespace TriplanoTest.Data
     /// Note to developers: Please describe what this class does.
     /// </summary>
     [CreateAssetMenu(menuName = MenuPath.Data + "Game", fileName = "New" + nameof(GameData))]
-    public class GameData : ScriptableObject 
+    public class GameData : ScriptableObject, IHasIcon
     {
         [Header("Game Data")]
         [SerializeField] private PlayerData player;
@@ -17,6 +18,8 @@ namespace TriplanoTest.Data
         public static GeneralData General => Instance.general;
 
         public static GameData Instance { get; private set; }
+
+        IconType IHasIcon.IconType => IconType.AudioMixerController;
 
         private void OnValidate() => Initialize();
 

@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1451f41327fd97c4c8aaacf9ee48b348, type: 3}
   m_Name: Guard_Hard
   m_EditorClassIdentifier: 
+  moveSpeed: 3
+  waitTime: 3
+  rotationSpeed: 6
