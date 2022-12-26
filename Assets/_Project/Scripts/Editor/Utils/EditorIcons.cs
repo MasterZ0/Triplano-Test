@@ -1,24 +1,11 @@
-﻿using UnityEditor;
+﻿using TriplanoTest.Shared.Design;
+using UnityEditor;
 using UnityEngine;
 
 namespace TriplanoTest.AppEditor.Design
 {
     // See more icons here: https://github.com/halak/unity-editor-icons
-    public enum IconType
-    {
-        None,
-        Lamp,
-        Box,
-        Cog,
-        Gamepad,
-        VerticalLayoutGroup,
-        ParticleSystemForceField,
-        AudioMixerController,
-        Eye,
-        Globo,
-        Avatar,
-        Body
-    }
+
 
     public static class EditorIcons
     {

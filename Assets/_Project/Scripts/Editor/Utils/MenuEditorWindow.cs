@@ -140,7 +140,7 @@ namespace TriplanoTest.AppEditor
             if (content.Children.Count > 0)  
             {
                 rect.x += 4;
-                rect.y += 15;
+                rect.y += 4;
 
                 content.Visible = EditorGUI.Foldout(rect, content.Visible, string.Empty);
             }

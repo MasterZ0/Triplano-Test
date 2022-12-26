@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System;
+using TriplanoTest.Shared.Design;
 
 namespace TriplanoTest.AppEditor.Design
 {
@@ -8,8 +9,13 @@ namespace TriplanoTest.AppEditor.Design
     {
         public static bool ButtonWithIconAndLabel(string name, IconType iconType)
         {
-            GUIStyle style = CustomEditorStyles.GetStyle(ButtonStyle.FlatButtonStyle, TextAnchor.MiddleLeft);
             Texture iconTexture = EditorIcons.GetTexture(iconType);
+            return ButtonWithIconAndLabel(name, iconTexture);
+        }
+
+        public static bool ButtonWithIconAndLabel(string name, Texture iconTexture)
+        {
+            GUIStyle style = CustomEditorStyles.GetStyle(ButtonStyle.FlatButtonStyle, TextAnchor.MiddleLeft);
 
             if (iconTexture != null) // Custom padding :D
             {

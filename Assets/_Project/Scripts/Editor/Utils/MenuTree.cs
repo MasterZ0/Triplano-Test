@@ -7,6 +7,7 @@ using System.Linq;
 using System.IO;
 using Object = UnityEngine.Object;
 using TriplanoTest.Shared.ExtensionMethods;
+using TriplanoTest.Shared.Design;
 using TriplanoTest.AppEditor.Design;
 
 namespace TriplanoTest.AppEditor
@@ -16,17 +17,26 @@ namespace TriplanoTest.AppEditor
         public string Title { get; }
         public bool Visible { get; set; } = true;
         public Object Asset { get; private set; }
-        public IconType ButtonIcon { get; private set; }
+        public Texture ButtonIcon { get; private set; }
         public List<ContentUI> Children { get; } = new List<ContentUI>();
 
         public ContentUI(string title) => Title = title;
-        internal void SetAsset(Object asset, IconType icon)
+
+        internal void SetAsset(Object asset)
         {
             Asset = asset;
-            ButtonIcon = icon;
+
+            if (asset is IHasCustomIcon customIconInterface)
+            {
+                ButtonIcon = customIconInterface.Icon;
+            }
+            if (asset is IHasIcon iconInterface)
+            {
+                ButtonIcon = EditorIcons.GetTexture(iconInterface.IconType);
+            }
         }
 
-        internal void SetIcon(IconType icon)
+        internal void SetIcon(Texture icon)
         {
             ButtonIcon = icon;
         }
@@ -36,15 +46,15 @@ namespace TriplanoTest.AppEditor
     {
         public List<ContentUI> Root { get; } = new();
 
-        public void Add(string drawPath, Object objectToDraw, IconType iconType = IconType.None) // Todo: Icon
+        public void Add(string drawPath, Object objectToDraw) // Todo: Icon
         {
             string[] pathSegments = drawPath.Split('/');
-            AddRecursive(Root, pathSegments, 0, objectToDraw, iconType);
+            AddRecursive(Root, pathSegments, 0, objectToDraw);
         }
 
-        public void AddGameData(string drawPath, ScriptableObject mainData, IconType iconType = IconType.None)
+        public void AddGameData(string drawPath, ScriptableObject mainData)
         {
-            Add(drawPath, mainData, iconType);
+            Add(drawPath, mainData);
 
             FieldInfo[] fields = mainData.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (FieldInfo field in fields)
@@ -57,7 +67,13 @@ namespace TriplanoTest.AppEditor
             }
         }
 
-        public void AddAllAssetsAtPath(string drawPath, string projectPath, Type searchType, IconType iconType = IconType.None, bool checkSubFolders = false)
+        public void AddAllAssetsAtPath(string drawPath, string projectPath, Type searchType, bool checkSubFolders = false, IconType iconType = IconType.None) 
+        { 
+            Texture texture = EditorIcons.GetTexture(iconType);
+            AddAllAssetsAtPath(drawPath, projectPath, searchType, texture, checkSubFolders);
+        }
+
+        public void AddAllAssetsAtPath(string drawPath, string projectPath, Type searchType, Texture iconTexture = null, bool checkSubFolders = false)
         {
             // Use Unity's AssetDatabase class to search for all assets of the specified type in the specified project path
             string[] guids = AssetDatabase.FindAssets("t:" + searchType.Name, new[] { projectPath });
@@ -68,7 +84,7 @@ namespace TriplanoTest.AppEditor
 
                 // Add the asset to the menu tree, using the specified drawing path as the tree path
                 string segment = asset.name.GetNiceString();
-                Add(drawPath + "/" + segment, asset, IconType.None);
+                Add(drawPath + "/" + segment, asset);
             }
 
             if (checkSubFolders)
@@ -81,15 +97,15 @@ namespace TriplanoTest.AppEditor
                     if (AssetDatabase.IsValidFolder(childFolderPath))
                     {
                         // Recursively add all assets in child folders
-                        AddAllAssetsAtPath(drawPath + "/" + Path.GetFileName(childFolderPath), childFolderPath, searchType, IconType.None, true);
+                        AddAllAssetsAtPath(drawPath + "/" + Path.GetFileName(childFolderPath), childFolderPath, searchType, true, IconType.None);
                     }
                 }
             }
 
-            FindContentAtPath(drawPath).SetIcon(iconType);
+            FindContentAtPath(drawPath).SetIcon(iconTexture);
         }
 
-        private void AddRecursive(List<ContentUI> nodes, string[] pathSegments, int segmentIndex, Object objectToDraw, IconType iconType)
+        private void AddRecursive(List<ContentUI> nodes, string[] pathSegments, int segmentIndex, Object objectToDraw)
         {
             if (segmentIndex >= pathSegments.Length)
                 return;
@@ -104,11 +120,11 @@ namespace TriplanoTest.AppEditor
 
             if (segmentIndex == pathSegments.Length - 1)
             {
-                node.SetAsset(objectToDraw, iconType);
+                node.SetAsset(objectToDraw);
             }
             else
             {
-                AddRecursive(node.Children, pathSegments, segmentIndex + 1, objectToDraw, iconType);
+                AddRecursive(node.Children, pathSegments, segmentIndex + 1, objectToDraw);
             }
         }
 

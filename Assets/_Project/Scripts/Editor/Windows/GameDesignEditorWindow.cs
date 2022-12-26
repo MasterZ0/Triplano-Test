@@ -4,6 +4,7 @@ using UnityEngine;
 using TriplanoTest.Shared;
 using TriplanoTest.Data;
 using TriplanoTest.AppEditor.Design;
+using TriplanoTest.Shared.Design;
 
 namespace TriplanoTest.AppEditor
 {
@@ -41,9 +42,10 @@ namespace TriplanoTest.AppEditor
         protected override void BuildMenuTree(MenuTree tree)
         {
             GameData gameData = AssetDatabase.LoadAssetAtPath<GameData>(ProjectPath.GameDataAsset);
-            tree.AddGameData("Game Data", gameData, IconType.AudioMixerController);
 
-            tree.AddAllAssetsAtPath($"Game Data/Enemies", $"{ProjectPath.Settings}/Enemies", typeof(ScriptableObject), IconType.Eye, true);
+            tree.AddGameData("Game Data", gameData);
+
+            tree.AddAllAssetsAtPath($"Game Data/Enemies", $"{ProjectPath.Settings}/Enemies", typeof(ScriptableObject), true, IconType.Eye);
         }
     }
 }
