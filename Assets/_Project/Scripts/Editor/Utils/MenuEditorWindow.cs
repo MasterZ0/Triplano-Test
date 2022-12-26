@@ -1,7 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.TestTools.TestRunner.Api;
 
 namespace TriplanoTest.AppEditor
 {
@@ -45,49 +44,30 @@ namespace TriplanoTest.AppEditor
 
         protected virtual void ToolBar() { }
 
-        #region Editor Window Areas
+        #region GUI + Editor Window Areas
         private void OnGUI()
         {
-
+            // Left side = Menu tree. Right Side = ToolBar And content
             EditorGUILayout.BeginHorizontal();
-            windowMenu = new Rect(0f, 0f, windowMenu.width, position.height);
-
-            BeginResizableArea(ref windowMenu);
-            SideBar();
-            GUI.enabled = true;
-            EndResizableArea();
-
-            EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.MaxWidth(position.width - windowMenu.width));
-
-            EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
             {
-                EditorGUILayout.BeginVertical(GUILayout.ExpandHeight(true));
-                {
-                    EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
-                    {
-                        ToolBar();
-                    }
-                    EditorGUILayout.EndHorizontal();
+                windowMenu = new Rect(0f, 0f, windowMenu.width, position.height);
 
-                    if (SelectedContent.Asset != null)
-                    {
-                        EditorComponents.DrawContentWithScroll(ref contentScrool, () => selectionEditor.DrawDefaultInspector());
-                    }
+                BeginResizableArea(ref windowMenu);
+                {
+                    DrawMenuTree();
+                    GUI.enabled = true;
                 }
-                EditorGUILayout.EndVertical();
+                EndResizableArea();
+
+                DrawToolBarAndContent();
             }
             EditorGUILayout.EndHorizontal();
-
             Repaint();
-            EditorGUILayout.EndVertical();
-
-
-            EditorGUILayout.EndHorizontal();
         }
 
-        private void SideBar()
+        /// <summary> Left Side </summary>
+        private void DrawMenuTree()
         {
-            // Side bar Start
             EditorGUILayout.BeginVertical(EditorStyles.helpBox, GUILayout.MaxWidth(windowMenu.width), GUILayout.ExpandWidth(true));
             {
                 sideScrolll = EditorGUILayout.BeginScrollView(sideScrolll, GUIStyle.none, GUI.skin.verticalScrollbar);
@@ -98,7 +78,28 @@ namespace TriplanoTest.AppEditor
             }
             EditorGUILayout.EndVertical();
         }
+
+        /// <summary> Right Side </summary>
+        private void DrawToolBarAndContent()
+        {
+            EditorGUILayout.BeginVertical(GUILayout.ExpandWidth(true), GUILayout.MaxWidth(position.width - windowMenu.width));
+            {
+                EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+                {
+                    ToolBar();
+                }
+                EditorGUILayout.EndHorizontal();
+
+                if (SelectedContent.Asset != null)
+                {
+                    EditorComponents.DrawContentWithScroll(ref contentScrool, () => selectionEditor.DrawDefaultInspector());
+                }
+            }
+            EditorGUILayout.EndVertical();
+        }
         #endregion
+
+        #region Menu Tree
         private void DrawRecursive(List<ContentUI> content)
         {
             // Vertical section to keep left paddings
@@ -161,6 +162,7 @@ namespace TriplanoTest.AppEditor
             SelectedContent = content;
             selectionEditor = Editor.CreateEditor(content.Asset);
         }
+        #endregion
 
         #region Resizable
         internal void BeginResizableArea(ref Rect windowMenu)
