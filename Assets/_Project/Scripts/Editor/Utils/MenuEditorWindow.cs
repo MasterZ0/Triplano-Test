@@ -1,6 +1,8 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using TriplanoTest.AppEditor.Design;
 
 namespace TriplanoTest.AppEditor
 {
@@ -109,7 +111,7 @@ namespace TriplanoTest.AppEditor
             {
                 // Draw Foldout and Content
                 EditorGUILayout.BeginHorizontal(); 
-                DrawHierarchyBtn(content, i);
+                DrawHierarchyBtn(content[i]);
                 EditorGUILayout.EndHorizontal();
 
                 // Vertical Space between buttons
@@ -130,31 +132,30 @@ namespace TriplanoTest.AppEditor
             EditorGUILayout.EndVertical();
         }
 
-        private void DrawHierarchyBtn(List<ContentUI> content, int index)
+        private void DrawHierarchyBtn(ContentUI content)
         {
             Rect rect = EditorGUILayout.BeginHorizontal(GUILayout.Height(32), GUILayout.Width(22));
 
             GUILayout.Space(0);
-            if (content[index].Children.Count > 0)  
+            if (content.Children.Count > 0)  
             {
                 rect.x += 4;
                 rect.y += 15;
 
-                content[index].Visible = EditorGUI.Foldout(rect, content[index].Visible, string.Empty);
+                content.Visible = EditorGUI.Foldout(rect, content.Visible, string.Empty);
             }
 
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.BeginHorizontal();
 
             // Check if is the current select object
-            GUI.enabled = SelectedContent != content[index];
-            if (EditorComponents.DrawButton(content[index].Title, ButtonStyle.FlatButtonStyle, TextAnchor.MiddleLeft))
+            GUI.enabled = SelectedContent != content;
+            if (EditorComponents.ButtonWithIconAndLabel(content.Title, content.ButtonIcon))
             {
-                SelectActiveContent(content[index]);
+                SelectActiveContent(content);
                 GUI.FocusControl(null);
             }
             EditorGUILayout.EndHorizontal();
-
         }
 
         private void SelectActiveContent(ContentUI content)

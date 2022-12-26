@@ -3,10 +3,10 @@ using UnityEditor.Callbacks;
 using UnityEngine;
 using TriplanoTest.Shared;
 using TriplanoTest.Data;
+using TriplanoTest.AppEditor.Design;
 
 namespace TriplanoTest.AppEditor
 {
-
     public class GameDesignEditorWindow : MenuEditorWindow
     {
         private const string GameDesign = "Game Design";
@@ -41,10 +41,9 @@ namespace TriplanoTest.AppEditor
         protected override void BuildMenuTree(MenuTree tree)
         {
             GameData gameData = AssetDatabase.LoadAssetAtPath<GameData>(ProjectPath.GameDataAsset);
-            tree.AddGameData("Game Data", gameData);
+            tree.AddGameData("Game Data", gameData, IconType.AudioMixerController);
 
-            tree.AddAllAssetsAtPath($"Game Data/Enemies", $"{ProjectPath.Settings}/Enemies", typeof(ScriptableObject), true);
-            
+            tree.AddAllAssetsAtPath($"Game Data/Enemies", $"{ProjectPath.Settings}/Enemies", typeof(ScriptableObject), IconType.Eye, true);
         }
     }
 }
