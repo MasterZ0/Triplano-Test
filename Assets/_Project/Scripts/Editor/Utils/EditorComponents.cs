@@ -21,7 +21,7 @@ namespace TriplanoTest.AppEditor
 
     public static class EditorComponents
     {
-        private static GUIStyle ButtonStyle1
+        public static GUIStyle ButtonStyle1
         {
             get
             {
@@ -34,7 +34,7 @@ namespace TriplanoTest.AppEditor
             }
         }
 
-        private static GUIStyle SquareButtonStyle = new GUIStyle
+        public static GUIStyle SquareButtonStyle = new GUIStyle
         {
             normal = new GUIStyleState
             {
@@ -47,11 +47,12 @@ namespace TriplanoTest.AppEditor
             border = new RectOffset(4, 4, 4, 4),
             padding = new RectOffset(8, 8, 8, 8),
             margin = new RectOffset(4, 4, 4, 4),
-            wordWrap = true,
             richText = true,
             imagePosition = ImagePosition.ImageAbove,
             contentOffset = new Vector2(0, -2)
         };
+
+        public static GUIStyle SimpleBtn => new GUIStyle(GUI.skin.button);
 
         public static bool DrawButton(string name, ButtonStyle styleType = ButtonStyle.Simple, TextAnchor alignment = TextAnchor.MiddleCenter)
         {
@@ -65,7 +66,7 @@ namespace TriplanoTest.AppEditor
                 ButtonStyle.RoundButtonStyle => ButtonStyle1,
                 ButtonStyle.FlatButtonStyle => SquareButtonStyle,
                 ButtonStyle.Toolbar => EditorStyles.toolbarButton,
-                ButtonStyle.Simple => new GUIStyle(GUI.skin.button),
+                ButtonStyle.Simple => SimpleBtn,
                 _ => throw new NotImplementedException(),
             };
             style.alignment = alignment;
@@ -85,6 +86,23 @@ namespace TriplanoTest.AppEditor
             return GUILayout.Button(icon, GetStyle(styleType), options);
         }
 
+        //public static bool DrawFoldout(bool value)
+        //{
+        //    string iconPath = iconType switch
+        //    {
+        //        IconType.Lamp => "PointLight Gizmo",
+        //        IconType.Lamp => "PointLight Gizmo",
+        //        _ => throw new NotImplementedException(),
+        //    };
+        //    GUIContent icon = EditorGUIUtility.IconContent(iconPath);
+        //    // d_icon dropdown@2x
+        //    if (GUILayout.Button(icon, GetStyle(styleType), options)
+        //    {
+        //        return !value;
+        //    }
+        //    return value;
+        //}
+
         public static void DrawContentWithScroll(ref Vector2 scrollPos, Action contentToDraw)
         {
             EditorGUILayout.BeginVertical(/*EditorStyles.helpBox*/);
@@ -98,5 +116,6 @@ namespace TriplanoTest.AppEditor
             }
             EditorGUILayout.EndVertical();
         }
+
     }
 }

@@ -14,9 +14,9 @@ namespace TriplanoTest.Data
         [SerializeField] private GeneralData general;
 
         public static PlayerData Player => Instance.player;
+        public static GeneralData General => Instance.general;
 
         public static GameData Instance { get; private set; }
-        public static GeneralData General => Instance.general;
 
         private void OnValidate() => Initialize();
 
