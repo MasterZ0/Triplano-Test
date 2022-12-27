@@ -16,11 +16,14 @@ MonoBehaviour:
   interactCheckRadius: 0.3
   fullLockAngle: 15
   aimBodyCorrectionSpeed: 15
+  standHeight: 1.5
+  crouchHeight: 0.65
   walkSpeed: 4
+  crouchSpeed: 0.5
   moveSpeedPushing: 1
   acceleration: 20
   deceleration: 15
-  pushBoxOffset: 0.5
+  pushBoxOffset: 0.4
   mouseSensitivity: 0.2
   rotationSmoothTime: 0.12
   cameraRangeRotation: {x: -35, y: 75}
@@ -29,5 +32,7 @@ MonoBehaviour:
   groundGravity: 0.5
   fallingGravity: 1
   jumpGravity: 1
-  maxFallingVelocity: 11
   mass: 1
+  maxFallingVelocity: 11
+  holdBoxTransitionDuration: 0.2
+  animationBlendDamp: 0.3

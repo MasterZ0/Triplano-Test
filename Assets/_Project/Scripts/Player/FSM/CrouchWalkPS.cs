@@ -1,22 +1,22 @@
 ﻿namespace TriplanoTest.Player.FSM
 {
-    public sealed class WalkPS : StandingSPS
+    public sealed class CrouchWalkPS : CrouchSPS
     {
         public override void EnterState()
         {
             base.EnterState();
-            Animator.Run();
+            Animator.CrounchWalk();
         }
 
-        public override void UpdateStanding()
+        public override void UpdateCrouch()
         {
             if (!Inputs.IsMovePressed)
             {
-                SwitchState<IdlePS>();
+                SwitchState<CrouchPS>();
                 return;
             }
 
-            Physics.Move(Settings.WalkSpeed);
+            Physics.Move(Settings.CrouchSpeed);
         }
     }
 }

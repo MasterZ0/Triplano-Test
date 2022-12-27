@@ -1,6 +1,6 @@
 ﻿namespace TriplanoTest.Player.FSM
 {
-    public sealed class IdlePS : StandingPS
+    public sealed class IdlePS : StandingSPS
     {
         public override void EnterState()
         {   

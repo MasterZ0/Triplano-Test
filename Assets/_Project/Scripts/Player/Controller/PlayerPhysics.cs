@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using System;
-using TriplanoTest.Data;
 using TriplanoTest.Shared.Utils;
 using TriplanoTest.Gameplay;
-using System.Linq;
 
 namespace TriplanoTest.Player
 {
@@ -19,25 +17,29 @@ namespace TriplanoTest.Player
 
         [Header("Components")]
         [SerializeField] private CharacterController characterController;
+        [SerializeField] private CapsuleCollider bodyTrigger;
+
+        [Header("Points")]
         [SerializeField] private Transform groundCheckPoint;
         [SerializeField] private Transform interactableCheckPoint;
+        [SerializeField] private Transform standUpCheckPoint;
+
+        public IPushable CurrentPushable { get; private set; }
+        public Vector3 Position => characterController.transform.position;
+        public Vector3 Velocity => characterController.velocity;
+        public Transform Transform => characterController.transform;
+
+        private float Weight => Data.Mass * Physics.gravity.y;
+        private float EulerYCamera => Controller.Camera.CameraTarget.eulerAngles.y;
 
         private Vector3 velocity;
-
         private float gravityScale;
         private float moveSpeed;
         private float verticalVelocity;
         private float targetYRotation;
         private float rotationVelocity;
 
-        public IPushable CurrentPushable { get; private set; }
-        public Vector3 Position => characterController.transform.position;
-
-        public Vector3 Velocity => characterController.velocity;
-        public Transform Transform => characterController.transform;
-        private PlayerData Data => GameData.Player;
-        private float Weight => Data.Mass * Physics.gravity.y;
-        private float EulerYCamera => Controller.Camera.CameraTarget.eulerAngles.y;
+        private bool acceleration;
 
         internal bool TryInteract()
         {
@@ -56,10 +58,13 @@ namespace TriplanoTest.Player
             return false;
         }
 
-        public bool CheckGround()
-        {
-            return Physics.CheckSphere(groundCheckPoint.position, Data.GroundCheckRadius, groundLayer);
-        }
+        internal bool CheckGround() => Physics.CheckSphere(groundCheckPoint.position, Data.GroundCheckRadius, groundLayer);
+
+        internal bool CanStand() => !Physics.CheckSphere(standUpCheckPoint.position, Data.GroundCheckRadius, groundLayer);
+
+        internal void UseCrouchCollider() => SetColliderHeight(Data.CrouchHeight);
+
+        internal void UseStandCollider() => SetColliderHeight(Data.StandHeight);
 
         public void Jump(float jumpHeight)
         {
@@ -101,8 +106,6 @@ namespace TriplanoTest.Player
             }
         }
 
-        private bool acceleration;
-
         internal void MoveTo(Vector3 targetPoint, Vector3 lookAt, float speed)
         {
             // Direction the body will move
@@ -123,22 +126,6 @@ namespace TriplanoTest.Player
             acceleration = false;
         }
 
-        internal void MovePush()
-        {
-            Vector2 direction = Controller.Inputs.Move;
-
-            if (direction.magnitude > 1)
-            {
-                direction = direction.normalized;
-            }
-
-            moveSpeed = Data.MoveSpeedPushing;
-            targetYRotation = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg + EulerYCamera;
-
-            Vector3 targetDirection = Quaternion.Euler(0f, targetYRotation, 0f) * Vector3.forward;
-            CurrentPushable.Push(targetDirection * moveSpeed * Time.fixedDeltaTime);
-            acceleration = false;
-        }
 
         internal void Move(float speed)
         {
@@ -218,10 +205,19 @@ namespace TriplanoTest.Player
             velocity = targetDirection.normalized * speed;
         }
 
+        private void SetColliderHeight(float height)
+        {
+            characterController.height = height;
+            characterController.center = new Vector3(0f, height * 0.5f, 0f);
+            bodyTrigger.height = height;
+            bodyTrigger.center = new Vector3(0f, height * 0.5f, 0f);
+        }
+
         public void DrawGizmos()
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(groundCheckPoint.position, Data.GroundCheckRadius);
+            Gizmos.DrawWireSphere(standUpCheckPoint.position, Data.GroundCheckRadius);
             Gizmos.DrawWireSphere(interactableCheckPoint.position, Data.InteractCheckRadius);
         }
     }

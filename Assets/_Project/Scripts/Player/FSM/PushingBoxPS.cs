@@ -5,52 +5,110 @@ namespace TriplanoTest.Player.FSM
 {
     public class PushingBoxPS : PlayerState
     {
-        private bool preparing;
+        private enum SubState
+        {
+            Preparing,
+            HoldingBox,
+            MovingBox,
+        }
+
+        private SubState subState;
+
+        // Box parameters
         private Vector3 edgePoint;
         private Vector3 direction;
         private Vector3 holdPoint;
+
+        /// <summary> Distance from box while pushing </summary>
+        private Vector3 boxDistance;
 
         private IPushable Box => Physics.CurrentPushable;
 
         public override void EnterState()
         {
-            preparing = true;
+            subState = SubState.Preparing;
 
             edgePoint = Box.GetHoldPoint(Controller.transform, out direction);
             holdPoint = edgePoint + direction * Settings.PushBoxOffset;
 
             Animator.Walk();
-            base.EnterState();
+            Animator.SetHoldBoxWeight(1f);
+            Animator.SetMoveSpeedScale(Settings.MoveSpeedPushing);
+        }
+
+        public override void ExitState()
+        {
+            Animator.SetHoldBoxWeight(0f);
         }
 
         public override void UpdateState()
         {
-            if (!Inputs.IsInteractPressed)
+            if (!Inputs.IsInteractPressed && subState != SubState.MovingBox)
             {
                 SwitchState<IdlePS>();
                 return;
             }
 
-            if (preparing)
+            switch (subState)
             {
-                Physics.MoveTo(holdPoint, -direction, Settings.WalkSpeed);
-                Vector3 aux = holdPoint;
-                aux.y = Physics.Position.y;
-                bool niceDirection = Vector3.Angle(Physics.Transform.forward, -direction) < 2f;
-                bool niceDistance = Vector3.Distance(aux, Physics.Position) <= 0.02f;
-                preparing = !niceDirection || !niceDistance;
+                case SubState.Preparing:
+                    Preparing();
+                    break;
+                case SubState.HoldingBox:
+                    HoldingBox();
+                    break;
+                case SubState.MovingBox:
+                    MovingBox();
+                    break;
+            }
+            //Animator.Update(Settings.MoveSpeedPushing);
+        }
+
+        private void Preparing()
+        {
+            Physics.MoveTo(holdPoint, -direction, Settings.WalkSpeed);
+
+            Vector3 targetPosition = holdPoint;
+            targetPosition.y = Physics.Position.y;
+
+            bool niceDirection = Vector3.Angle(Physics.Transform.forward, -direction) < 2f;
+            bool niceDistance = Vector3.Distance(targetPosition, Physics.Position) <= 0.02f;
+
+            if (niceDirection && niceDistance)
+            {
+                subState = SubState.HoldingBox;
+                boxDistance = Physics.Position - Box.Position;
+            }
+        }
+
+        private void HoldingBox()
+        {
+            Vector2 inputDirection = Controller.Inputs.Move;
+
+            if (inputDirection == Vector2.zero)
+                return;
+
+            // Try Move Box
+            float angleToMove = Mathf.Atan2(inputDirection.x, inputDirection.y) * Mathf.Rad2Deg + Camera.CameraTarget.eulerAngles.y;
+            int roundedAngle = Mathf.RoundToInt(angleToMove / 90f) * 90;
+
+            Vector3 targetDirection = Quaternion.Euler(0f, roundedAngle, 0f) * Vector3.forward;
+
+            if (Box.Push(targetDirection, Settings.MoveSpeedPushing))
+            {
+                subState = SubState.MovingBox;
+            }
+        }
+
+        private void MovingBox()
+        {
+            if (Box.IsMoving)
+            {
+                Physics.MoveTo(Box.Position + boxDistance, -direction, Settings.MoveSpeedPushing * 2f); // Must need extra speed
             }
             else
             {
-                if (Inputs.IsMovePressed)
-                {
-                    Animator.Walk();
-                    Physics.MovePush();
-                }
-                else
-                {
-                    Animator.Idle();
-                }
+                subState = SubState.HoldingBox;
             }
         }
 

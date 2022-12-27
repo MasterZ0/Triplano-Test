@@ -42,16 +42,20 @@ namespace TriplanoTest.Player
             stateMachine.Update();
             playerPhysics.Update();
             playerCamera.Update();
+            playerAnimator.Update();
         }
 
         private void OnDrawGizmos()
         {
-            playerPhysics.DrawGizmos();
-
             if (Application.isPlaying)
             {
                 stateMachine.DrawGizmos();
             }
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            playerPhysics.DrawGizmos();
         }
     }
 }

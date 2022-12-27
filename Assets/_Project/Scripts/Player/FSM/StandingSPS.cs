@@ -1,6 +1,6 @@
 ﻿namespace TriplanoTest.Player.FSM
 {
-    public abstract class StandingPS : PlayerState
+    public abstract class StandingSPS : PlayerState
     {
         public override void EnterState()
         {

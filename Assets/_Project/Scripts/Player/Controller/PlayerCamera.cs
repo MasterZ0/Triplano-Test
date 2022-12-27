@@ -18,7 +18,6 @@ namespace TriplanoTest.Player
 
         private const float Threshold = 0.01f;
         public Transform CameraTarget => cameraTarget;
-        private PlayerData Settings => Controller.Data;
 
         #region Initialization
         public override void Init(PlayerController playerController)
@@ -44,13 +43,13 @@ namespace TriplanoTest.Player
             {
                 if (!XLocked)
                 {
-                    xRotation -= look.y * Settings.MouseSensitivity;
-                    xRotation = Mathf.Clamp(xRotation, Settings.CameraRangeRotation.x, Settings.CameraRangeRotation.y);
+                    xRotation -= look.y * Data.MouseSensitivity;
+                    xRotation = Mathf.Clamp(xRotation, Data.CameraRangeRotation.x, Data.CameraRangeRotation.y);
                 }
 
                 if (!YLocked)
                 {
-                    yRotation += look.x * Settings.MouseSensitivity;
+                    yRotation += look.x * Data.MouseSensitivity;
                     yRotation = ClampAngle(yRotation);
                 }
                 else

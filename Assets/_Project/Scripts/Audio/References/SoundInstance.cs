@@ -11,7 +11,7 @@ namespace TriplanoTest.Audio
     {
         [SerializeField] private AudioSource audioSource;
 
-        public bool SoundFinished => audioSource.time >= audioSource.clip.length;
+        public bool SoundFinished => !audioSource.isPlaying;
 
         private SoundData soundData;
         private int soundIndex;

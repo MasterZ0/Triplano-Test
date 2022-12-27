@@ -12,6 +12,7 @@ namespace TriplanoTest.Player.FSM
         // Player Components
         protected PlayerPhysics Physics => Controller.Physics;
         protected PlayerAnimator Animator => Controller.Animator;
+        protected PlayerCamera Camera => Controller.Camera;
         protected PlayerSFX SFX => Controller.SFX;
         protected PlayerInputs Inputs => Controller.Inputs;
     }
