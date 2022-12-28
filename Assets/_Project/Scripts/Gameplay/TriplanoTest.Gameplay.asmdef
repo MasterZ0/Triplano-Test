@@ -2,6 +2,7 @@
     "name": "TriplanoTest.Gameplay",
     "rootNamespace": "TriplanoTest.Gameplay",
     "references": [
+        "GUID:4307f53044263cf4b835bd812fc161a4",
         "GUID:88acd8245b5b32a4487d3994bba3e0e3",
         "GUID:3f813859bdfe29f46bfe1afe0e598cf9"
     ],

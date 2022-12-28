@@ -1,5 +1,5 @@
 ﻿using System;
-using TriplanoTest.Data;
+using TriplanoTest.Gameplay;
 using UnityEngine;
 
 namespace TriplanoTest.Player
@@ -17,7 +17,7 @@ namespace TriplanoTest.Player
         private float yRotation;
 
         private const float Threshold = 0.01f;
-        public Transform CameraTarget => cameraTarget;
+        public Transform CameraTarget => MainCamera.Transform;
 
         #region Initialization
         public override void Init(PlayerController playerController)
@@ -25,6 +25,8 @@ namespace TriplanoTest.Player
             base.Init(playerController);
 
             yRotation = cameraTarget.localEulerAngles.y;
+
+            MainCamera.SetPlayerTarget(cameraTarget);
         }
         #endregion
 

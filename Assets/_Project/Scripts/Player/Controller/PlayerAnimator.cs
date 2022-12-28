@@ -87,8 +87,7 @@ namespace TriplanoTest.Player
 
         private void Play(string stateName, float transition = 0.25f, int layerIndex = 0)
         {
-            AnimatorStateInfo current = animator.GetCurrentAnimatorStateInfo(layerIndex);
-            animator.CrossFadeInFixedTime(stateName, transition, layerIndex, current.normalizedTime);
+            animator.CrossFadeInFixedTime(stateName, transition, layerIndex);
         }
 
         private void SetFloat(string parameter, float value) => animator.SetFloat(parameter, value);

@@ -1,13 +1,17 @@
+using System;
+using TriplanoTest.Shared;
 using UnityEngine;
 
 namespace TriplanoTest.Gameplay
 {
-    /// <summary>
-    /// Note to developers: Please describe what this MonoBehaviour does.
-    /// </summary>
-    public class MainCamera : MonoBehaviour 
+    public class MainCamera : Singleton<MainCamera>
     {
-        
-        //[Header("MainCamera")] // Remember to use attributes, #regions and XML Documentation :)
+        public static Transform Transform => Instance.transform;
+        public static Transform PlayerTarget { get; private set; }
+
+        public static void SetPlayerTarget(Transform cameraTarget)
+        {
+            PlayerTarget = cameraTarget;
+        }
     }
 }
