@@ -200,42 +200,6 @@ namespace TriplanoTest.Inputs
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ExtraA"",
-                    ""type"": ""Button"",
-                    ""id"": ""477ddd44-eb9e-494d-b781-eacb98fe897e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ExtraB"",
-                    ""type"": ""Button"",
-                    ""id"": ""f9f62cd6-6f6c-4f38-bdd9-f539a4fb3002"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""RightTab"",
-                    ""type"": ""Button"",
-                    ""id"": ""ef80c783-4a41-4757-bfc2-f7008f094de8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""LeftTab"",
-                    ""type"": ""Button"",
-                    ""id"": ""14557337-f2c6-44ce-a2ff-cef121ec8068"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""bb07b7c6-a796-4658-9158-4a72ea4f6aed"",
@@ -455,28 +419,6 @@ namespace TriplanoTest.Inputs
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""51e733d0-23e5-4ff2-b4e2-7b69d2952a01"",
-                    ""path"": ""<Keyboard>/o"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""ExtraA"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""03f8d8bb-ef4c-4e13-8d97-24dbcd9e22b5"",
-                    ""path"": ""<Gamepad>/buttonWest"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ExtraA"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
                     ""name"": ""Arrows"",
                     ""id"": ""095deb2c-c2ce-4910-859a-f41ebd5ade1b"",
                     ""path"": ""2DVector"",
@@ -654,28 +596,6 @@ namespace TriplanoTest.Inputs
                 },
                 {
                     ""name"": """",
-                    ""id"": ""86954b2b-fa6c-45e6-a5d2-d2b54f15166b"",
-                    ""path"": ""<Keyboard>/p"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""ExtraB"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""f71afbd9-39d7-40a2-8d23-43c0e5c401d7"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""ExtraB"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d747d2e2-0513-4344-9baf-f5c0f19b6f06"",
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
@@ -704,28 +624,6 @@ namespace TriplanoTest.Inputs
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c3b33006-0ea2-477d-9e2b-8c6603ae5e6c"",
-                    ""path"": ""<Keyboard>/q"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""LeftTab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""30051b02-457d-4e92-b3b0-584815365e68"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""PC"",
-                    ""action"": ""RightTab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -773,10 +671,6 @@ namespace TriplanoTest.Inputs
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
             m_UI_Cancel = m_UI.FindAction("Cancel", throwIfNotFound: true);
-            m_UI_ExtraA = m_UI.FindAction("ExtraA", throwIfNotFound: true);
-            m_UI_ExtraB = m_UI.FindAction("ExtraB", throwIfNotFound: true);
-            m_UI_RightTab = m_UI.FindAction("RightTab", throwIfNotFound: true);
-            m_UI_LeftTab = m_UI.FindAction("LeftTab", throwIfNotFound: true);
             m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
             m_UI_Scroll = m_UI.FindAction("Scroll", throwIfNotFound: true);
             m_UI_Point = m_UI.FindAction("Point", throwIfNotFound: true);
@@ -910,10 +804,6 @@ namespace TriplanoTest.Inputs
         private IUIActions m_UIActionsCallbackInterface;
         private readonly InputAction m_UI_Submit;
         private readonly InputAction m_UI_Cancel;
-        private readonly InputAction m_UI_ExtraA;
-        private readonly InputAction m_UI_ExtraB;
-        private readonly InputAction m_UI_RightTab;
-        private readonly InputAction m_UI_LeftTab;
         private readonly InputAction m_UI_Move;
         private readonly InputAction m_UI_Scroll;
         private readonly InputAction m_UI_Point;
@@ -927,10 +817,6 @@ namespace TriplanoTest.Inputs
             public UIActions(@Controls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Submit => m_Wrapper.m_UI_Submit;
             public InputAction @Cancel => m_Wrapper.m_UI_Cancel;
-            public InputAction @ExtraA => m_Wrapper.m_UI_ExtraA;
-            public InputAction @ExtraB => m_Wrapper.m_UI_ExtraB;
-            public InputAction @RightTab => m_Wrapper.m_UI_RightTab;
-            public InputAction @LeftTab => m_Wrapper.m_UI_LeftTab;
             public InputAction @Move => m_Wrapper.m_UI_Move;
             public InputAction @Scroll => m_Wrapper.m_UI_Scroll;
             public InputAction @Point => m_Wrapper.m_UI_Point;
@@ -953,18 +839,6 @@ namespace TriplanoTest.Inputs
                     @Cancel.started -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
                     @Cancel.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
                     @Cancel.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnCancel;
-                    @ExtraA.started -= m_Wrapper.m_UIActionsCallbackInterface.OnExtraA;
-                    @ExtraA.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnExtraA;
-                    @ExtraA.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnExtraA;
-                    @ExtraB.started -= m_Wrapper.m_UIActionsCallbackInterface.OnExtraB;
-                    @ExtraB.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnExtraB;
-                    @ExtraB.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnExtraB;
-                    @RightTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnRightTab;
-                    @RightTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnRightTab;
-                    @RightTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnRightTab;
-                    @LeftTab.started -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftTab;
-                    @LeftTab.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftTab;
-                    @LeftTab.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnLeftTab;
                     @Move.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMove;
                     @Move.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMove;
                     @Move.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMove;
@@ -996,18 +870,6 @@ namespace TriplanoTest.Inputs
                     @Cancel.started += instance.OnCancel;
                     @Cancel.performed += instance.OnCancel;
                     @Cancel.canceled += instance.OnCancel;
-                    @ExtraA.started += instance.OnExtraA;
-                    @ExtraA.performed += instance.OnExtraA;
-                    @ExtraA.canceled += instance.OnExtraA;
-                    @ExtraB.started += instance.OnExtraB;
-                    @ExtraB.performed += instance.OnExtraB;
-                    @ExtraB.canceled += instance.OnExtraB;
-                    @RightTab.started += instance.OnRightTab;
-                    @RightTab.performed += instance.OnRightTab;
-                    @RightTab.canceled += instance.OnRightTab;
-                    @LeftTab.started += instance.OnLeftTab;
-                    @LeftTab.performed += instance.OnLeftTab;
-                    @LeftTab.canceled += instance.OnLeftTab;
                     @Move.started += instance.OnMove;
                     @Move.performed += instance.OnMove;
                     @Move.canceled += instance.OnMove;
@@ -1063,10 +925,6 @@ namespace TriplanoTest.Inputs
         {
             void OnSubmit(InputAction.CallbackContext context);
             void OnCancel(InputAction.CallbackContext context);
-            void OnExtraA(InputAction.CallbackContext context);
-            void OnExtraB(InputAction.CallbackContext context);
-            void OnRightTab(InputAction.CallbackContext context);
-            void OnLeftTab(InputAction.CallbackContext context);
             void OnMove(InputAction.CallbackContext context);
             void OnScroll(InputAction.CallbackContext context);
             void OnPoint(InputAction.CallbackContext context);

@@ -176,42 +176,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ExtraA",
-                    "type": "Button",
-                    "id": "477ddd44-eb9e-494d-b781-eacb98fe897e",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ExtraB",
-                    "type": "Button",
-                    "id": "f9f62cd6-6f6c-4f38-bdd9-f539a4fb3002",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RightTab",
-                    "type": "Button",
-                    "id": "ef80c783-4a41-4757-bfc2-f7008f094de8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "LeftTab",
-                    "type": "Button",
-                    "id": "14557337-f2c6-44ce-a2ff-cef121ec8068",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Move",
                     "type": "Value",
                     "id": "bb07b7c6-a796-4658-9158-4a72ea4f6aed",
@@ -431,28 +395,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "51e733d0-23e5-4ff2-b4e2-7b69d2952a01",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "ExtraA",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "03f8d8bb-ef4c-4e13-8d97-24dbcd9e22b5",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ExtraA",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
                     "name": "Arrows",
                     "id": "095deb2c-c2ce-4910-859a-f41ebd5ade1b",
                     "path": "2DVector",
@@ -630,28 +572,6 @@
                 },
                 {
                     "name": "",
-                    "id": "86954b2b-fa6c-45e6-a5d2-d2b54f15166b",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "ExtraB",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f71afbd9-39d7-40a2-8d23-43c0e5c401d7",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ExtraB",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d747d2e2-0513-4344-9baf-f5c0f19b6f06",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -680,28 +600,6 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c3b33006-0ea2-477d-9e2b-8c6603ae5e6c",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "LeftTab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "30051b02-457d-4e92-b3b0-584815365e68",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "RightTab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
