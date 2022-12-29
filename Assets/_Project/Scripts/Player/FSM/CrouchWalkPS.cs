@@ -16,7 +16,7 @@
                 return;
             }
 
-            Physics.Move(Settings.CrouchSpeed);
+            Physics.Move(Data.CrouchSpeed);
         }
     }
 }

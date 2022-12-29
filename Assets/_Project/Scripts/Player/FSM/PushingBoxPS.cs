@@ -29,11 +29,11 @@ namespace TriplanoTest.Player.FSM
             subState = SubState.Preparing;
 
             edgePoint = Box.GetHoldPoint(Controller.transform, out direction);
-            holdPoint = edgePoint + direction * Settings.PushBoxOffset;
+            holdPoint = edgePoint + direction * Data.PushBoxOffset;
 
             Animator.Walk();
             Animator.SetHoldBoxWeight(1f);
-            Animator.SetMoveSpeedScale(Settings.MoveSpeedPushing);
+            Animator.SetMoveSpeedScale(Data.MoveSpeedPushing);
         }
 
         public override void ExitState()
@@ -72,7 +72,7 @@ namespace TriplanoTest.Player.FSM
 
         private void Preparing()
         {
-            Physics.MoveTo(holdPoint, -direction, Settings.WalkSpeed);
+            Physics.MoveTo(holdPoint, -direction, Data.WalkSpeed);
 
             Vector3 targetPosition = holdPoint;
             targetPosition.y = Physics.Position.y;
@@ -100,7 +100,7 @@ namespace TriplanoTest.Player.FSM
 
             Vector3 targetDirection = Quaternion.Euler(0f, roundedAngle, 0f) * Vector3.forward;
 
-            if (Box.Push(targetDirection, Settings.MoveSpeedPushing))
+            if (Box.Push(targetDirection, Data.MoveSpeedPushing))
             {
                 subState = SubState.MovingBox;
             }
@@ -110,7 +110,7 @@ namespace TriplanoTest.Player.FSM
         {
             if (Box.IsMoving)
             {
-                Physics.MoveTo(Box.Position + boxDistance, -direction, Settings.MoveSpeedPushing * 2f); // Must need extra speed
+                Physics.MoveTo(Box.Position + boxDistance, -direction, Data.MoveSpeedPushing * 2f); // Must need extra speed
             }
             else
             {

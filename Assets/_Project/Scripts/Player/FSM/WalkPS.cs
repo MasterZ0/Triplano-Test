@@ -16,7 +16,7 @@
                 return;
             }
 
-            Physics.Move(Settings.WalkSpeed);
+            Physics.Move(Data.WalkSpeed);
         }
     }
 }

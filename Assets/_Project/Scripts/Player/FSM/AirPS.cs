@@ -8,8 +8,8 @@ namespace TriplanoTest.Player.FSM
 
         private bool falling;
 
-        private bool MinJumpApplied => timer.Counter > Settings.JumpRangeDuration.x;
-        private bool MaxJumpApplied => timer.Counter >= Settings.JumpRangeDuration.y;
+        private bool MinJumpApplied => timer.Counter > Data.JumpRangeDuration.x;
+        private bool MaxJumpApplied => timer.Counter >= Data.JumpRangeDuration.y;
 
         public override void EnterState()
         {
@@ -18,7 +18,7 @@ namespace TriplanoTest.Player.FSM
 
             if (falling)
             {
-                Physics.SetGravityScale(Settings.FallingGravity);
+                Physics.SetGravityScale(Data.FallingGravity);
                 Animator.Falling();
             }
             else
@@ -27,14 +27,14 @@ namespace TriplanoTest.Player.FSM
 
                 //VFX.Jump();
                 SFX.Jump();
-                Physics.SetGravityScale(Settings.JumpGravity);
+                Physics.SetGravityScale(Data.JumpGravity);
             }
         }
 
         public override void UpdateState()
         {
             timer.FixedTick();
-            Physics.Move(Settings.WalkSpeed);
+            Physics.Move(Data.WalkSpeed);
 
             if (StateMachine.IsJumping)
             {
@@ -45,7 +45,7 @@ namespace TriplanoTest.Player.FSM
             if (!falling && Physics.Velocity.y < 0) // Wait until start fall
             {
                 falling = true;
-                Physics.SetGravityScale(Settings.FallingGravity);
+                Physics.SetGravityScale(Data.FallingGravity);
                 Animator.Falling();
             }
 
@@ -59,7 +59,7 @@ namespace TriplanoTest.Player.FSM
 
         private void ApplyJump()
         {
-            Physics.Jump(Settings.JumpVelocity);
+            Physics.Jump(Data.JumpVelocity);
 
             if (MinJumpApplied && (!Inputs.IsJumpPressed || MaxJumpApplied))
             {

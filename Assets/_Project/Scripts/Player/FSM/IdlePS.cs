@@ -6,7 +6,7 @@
         {   
             base.EnterState();
             Animator.Idle();
-            Physics.SetGravityScale(Settings.GroundGravity);
+            Physics.SetGravityScale(Data.GroundGravity);
         }
 
         public override void UpdateStanding()
