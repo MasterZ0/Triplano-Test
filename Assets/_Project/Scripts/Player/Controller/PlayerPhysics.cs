@@ -40,9 +40,13 @@ namespace TriplanoTest.Player
         private float rotationVelocity;
 
         private bool acceleration;
+        private bool isInteracting;
 
-        internal bool TryInteract()
+        internal bool CanInteract()
         {
+            if (isInteracting)
+                return true;
+
             CurrentPushable = null;
             Collider[] colliders = Physics.OverlapSphere(interactableCheckPoint.position, Data.InteractCheckRadius, interactableLayer);
 
@@ -57,6 +61,14 @@ namespace TriplanoTest.Player
 
             return false;
         }
+
+        internal bool TryInteract()
+        {
+            isInteracting = CurrentPushable != null;
+            return isInteracting;
+        }
+
+        internal void StopInteract() => isInteracting = false;
 
         internal bool CheckGround() => Physics.CheckSphere(groundCheckPoint.position, Data.GroundCheckRadius, groundLayer);
 

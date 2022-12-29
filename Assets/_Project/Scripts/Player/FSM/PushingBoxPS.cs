@@ -39,10 +39,17 @@ namespace TriplanoTest.Player.FSM
         public override void ExitState()
         {
             Animator.SetHoldBoxWeight(0f);
+            Physics.StopInteract();
         }
 
         public override void UpdateState()
         {
+            if (!Physics.CheckGround())
+            {
+                SwitchState<AirPS>();
+                return;
+            }
+
             if (!Inputs.IsInteractPressed && subState != SubState.MovingBox)
             {
                 SwitchState<IdlePS>();
@@ -61,7 +68,6 @@ namespace TriplanoTest.Player.FSM
                     MovingBox();
                     break;
             }
-            //Animator.Update(Settings.MoveSpeedPushing);
         }
 
         private void Preparing()

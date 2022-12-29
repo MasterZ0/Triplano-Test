@@ -35,4 +35,4 @@ MonoBehaviour:
   mass: 1
   maxFallingVelocity: 11
   holdBoxTransitionDuration: 0.2
-  animationBlendDamp: 0.3
+  animationBlendDamp: 0.15

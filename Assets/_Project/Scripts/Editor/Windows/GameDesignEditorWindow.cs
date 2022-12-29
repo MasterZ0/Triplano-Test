@@ -46,6 +46,7 @@ namespace TriplanoTest.AppEditor
             tree.AddGameData("Game Data", gameData);
 
             tree.AddAllAssetsAtPath($"Game Data/Enemies", $"{ProjectPath.Settings}/Enemies", typeof(ScriptableObject), true, IconType.Eye);
+            tree.AddAllAssetsAtPath($"Game Data/Coins", $"{ProjectPath.Settings}/Coins", typeof(ScriptableObject), true, IconType.Gamepad);
         }
     }
 }

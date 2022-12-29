@@ -1,9 +1,9 @@
-using System;
 using TriplanoTest.Shared;
 using UnityEngine;
 
 namespace TriplanoTest.Gameplay
 {
+
     public class MainCamera : Singleton<MainCamera>
     {
         public static Transform Transform => Instance.transform;

@@ -2,10 +2,11 @@ using UnityEngine;
 using TriplanoTest.Player.FSM;
 using TriplanoTest.Inputs;
 using TriplanoTest.Data;
+using TriplanoTest.Gameplay;
 
 namespace TriplanoTest.Player
 {
-    public sealed class PlayerController : MonoBehaviour 
+    public sealed class PlayerController : MonoBehaviour, ICollector
     {
         [Header("Player Controller")]
         [SerializeField] private bool debugMode;
@@ -14,6 +15,7 @@ namespace TriplanoTest.Player
         [SerializeField] private PlayerAnimator playerAnimator;
         [SerializeField] private PlayerCamera playerCamera;
         [SerializeField] private PlayerSFX playerSFX;
+        [SerializeField] private PlayerUI playerUI;
 
         public bool DebugMode => debugMode;
         public PlayerData Data => GameData.Player;
@@ -28,6 +30,7 @@ namespace TriplanoTest.Player
 
         private void Awake()
         {
+            playerUI.Init(this);
             playerPhysics.Init(this);
             playerAnimator.Init(this);
             playerCamera.Init(this);
@@ -43,7 +46,10 @@ namespace TriplanoTest.Player
             playerPhysics.Update();
             playerCamera.Update();
             playerAnimator.Update();
+            playerUI.Update();
         }
+
+        public void AddCoin(int amount) => playerUI.AddCoin(amount);
 
         private void OnDrawGizmos()
         {

@@ -3,6 +3,7 @@
     "rootNamespace": "TriplanoTest.Player",
     "references": [
         "GUID:7f7d1af65c2641843945d409d28f2e20",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
         "GUID:8d34520361baee14aa1194267e83a495",
         "GUID:bf294c4ea7f261a489d057e3c0857933",
         "GUID:88acd8245b5b32a4487d3994bba3e0e3",

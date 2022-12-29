@@ -4,9 +4,6 @@ using UnityEngine;
 
 namespace TriplanoTest.AppEditor.Design
 {
-    // See more icons here: https://github.com/halak/unity-editor-icons
-
-
     public static class EditorIcons
     {
         public static Texture GetTexture(IconType iconType)
@@ -14,6 +11,7 @@ namespace TriplanoTest.AppEditor.Design
             return GetGUIContent(iconType).image;
         }
 
+        // See more icons here: https://github.com/halak/unity-editor-icons
         public static GUIContent GetGUIContent(IconType iconType)
         {
             string iconPath = iconType switch
