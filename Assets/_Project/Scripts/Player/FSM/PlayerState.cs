@@ -7,9 +7,7 @@ namespace TriplanoTest.Player.FSM
     public abstract class PlayerState : State<PlayerFSM>
     {
         protected PlayerController Controller => StateMachine.Controller;
-        protected PlayerData Settings => GameData.Player;
-
-        // Player Components
+        protected PlayerData Data => Controller.Data;
         protected PlayerPhysics Physics => Controller.Physics;
         protected PlayerAnimator Animator => Controller.Animator;
         protected PlayerCamera Camera => Controller.Camera;

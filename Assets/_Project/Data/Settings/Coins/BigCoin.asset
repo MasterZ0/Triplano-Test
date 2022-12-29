@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e018fb2ed878fb4a923ed7b45909217, type: 3}
   m_Name: BigCoin
   m_EditorClassIdentifier: 
-  value: 0
-  color: {r: 1, g: 0, b: 0.03997326, a: 0}
+  value: 5
+  color: {r: 0, g: 1, b: 1, a: 1}

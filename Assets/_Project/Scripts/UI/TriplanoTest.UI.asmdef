@@ -1,11 +1,7 @@
 {
-    "name": "TriplanoTest.Gameplay",
-    "rootNamespace": "TriplanoTest.Gameplay",
+    "name": "TriplanoTest.UI",
+    "rootNamespace": "TriplanoTest.UI",
     "references": [
-        "GUID:4307f53044263cf4b835bd812fc161a4",
-        "GUID:7e66103290e0d844cb74aa64bb7a5483",
-        "GUID:65c3704d72a14fd409ae6284761d3f92",
-        "GUID:88acd8245b5b32a4487d3994bba3e0e3",
         "GUID:3f813859bdfe29f46bfe1afe0e598cf9"
     ],
     "includePlatforms": [],
