@@ -88,6 +88,17 @@ namespace TriplanoTest.Inputs
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": """",
+                    ""id"": ""16fc08f8-412a-45ab-97e6-de036d4e6186"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
                     ""name"": ""WASD [PC]"",
                     ""id"": ""7cf7482e-122c-4836-b46c-1c6ada2d9d79"",
                     ""path"": ""2DVector(mode=1)"",
@@ -628,6 +639,34 @@ namespace TriplanoTest.Inputs
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Debug"",
+            ""id"": ""9829c30e-021e-4053-bd51-713b27bb98b9"",
+            ""actions"": [
+                {
+                    ""name"": ""Invisible"",
+                    ""type"": ""Button"",
+                    ""id"": ""92f957ef-3d2b-42c3-95a1-0be20757e7d9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a68d018b-287b-42de-aa09-074872a30e4f"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Invisible"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -678,6 +717,9 @@ namespace TriplanoTest.Inputs
             m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
             m_UI_LeftClick = m_UI.FindAction("LeftClick", throwIfNotFound: true);
             m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+            // Debug
+            m_Debug = asset.FindActionMap("Debug", throwIfNotFound: true);
+            m_Debug_Invisible = m_Debug.FindAction("Invisible", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -895,6 +937,39 @@ namespace TriplanoTest.Inputs
             }
         }
         public UIActions @UI => new UIActions(this);
+
+        // Debug
+        private readonly InputActionMap m_Debug;
+        private IDebugActions m_DebugActionsCallbackInterface;
+        private readonly InputAction m_Debug_Invisible;
+        public struct DebugActions
+        {
+            private @Controls m_Wrapper;
+            public DebugActions(@Controls wrapper) { m_Wrapper = wrapper; }
+            public InputAction @Invisible => m_Wrapper.m_Debug_Invisible;
+            public InputActionMap Get() { return m_Wrapper.m_Debug; }
+            public void Enable() { Get().Enable(); }
+            public void Disable() { Get().Disable(); }
+            public bool enabled => Get().enabled;
+            public static implicit operator InputActionMap(DebugActions set) { return set.Get(); }
+            public void SetCallbacks(IDebugActions instance)
+            {
+                if (m_Wrapper.m_DebugActionsCallbackInterface != null)
+                {
+                    @Invisible.started -= m_Wrapper.m_DebugActionsCallbackInterface.OnInvisible;
+                    @Invisible.performed -= m_Wrapper.m_DebugActionsCallbackInterface.OnInvisible;
+                    @Invisible.canceled -= m_Wrapper.m_DebugActionsCallbackInterface.OnInvisible;
+                }
+                m_Wrapper.m_DebugActionsCallbackInterface = instance;
+                if (instance != null)
+                {
+                    @Invisible.started += instance.OnInvisible;
+                    @Invisible.performed += instance.OnInvisible;
+                    @Invisible.canceled += instance.OnInvisible;
+                }
+            }
+        }
+        public DebugActions @Debug => new DebugActions(this);
         private int m_PCSchemeIndex = -1;
         public InputControlScheme PCScheme
         {
@@ -932,6 +1007,10 @@ namespace TriplanoTest.Inputs
             void OnMiddleClick(InputAction.CallbackContext context);
             void OnLeftClick(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
+        }
+        public interface IDebugActions
+        {
+            void OnInvisible(InputAction.CallbackContext context);
         }
     }
 }

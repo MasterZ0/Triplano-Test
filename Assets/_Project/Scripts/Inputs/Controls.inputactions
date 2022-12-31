@@ -64,6 +64,17 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "",
+                    "id": "16fc08f8-412a-45ab-97e6-de036d4e6186",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
                     "name": "WASD [PC]",
                     "id": "7cf7482e-122c-4836-b46c-1c6ada2d9d79",
                     "path": "2DVector(mode=1)",
@@ -600,6 +611,34 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Debug",
+            "id": "9829c30e-021e-4053-bd51-713b27bb98b9",
+            "actions": [
+                {
+                    "name": "Invisible",
+                    "type": "Button",
+                    "id": "92f957ef-3d2b-42c3-95a1-0be20757e7d9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a68d018b-287b-42de-aa09-074872a30e4f",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Invisible",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

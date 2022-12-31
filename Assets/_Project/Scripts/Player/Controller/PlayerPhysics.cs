@@ -14,6 +14,8 @@ namespace TriplanoTest.Player
         [Header("Layers")]
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask interactableLayer;
+        [SerializeField] private LayerMask playerLayer;
+        [SerializeField] private LayerMask invisibleLayer;
 
         [Header("Components")]
         [SerializeField] private CharacterController characterController;
@@ -41,6 +43,9 @@ namespace TriplanoTest.Player
 
         private bool acceleration;
         private bool isInteracting;
+
+        public void ShowPlayer() => Controller.gameObject.layer = (int)Mathf.Log(playerLayer.value, 2);
+        public void HidePlayer() => Controller.gameObject.layer = (int)Mathf.Log(invisibleLayer.value, 2);
 
         internal bool CanInteract()
         {
@@ -231,6 +236,14 @@ namespace TriplanoTest.Player
             Gizmos.DrawWireSphere(groundCheckPoint.position, Data.GroundCheckRadius);
             Gizmos.DrawWireSphere(standUpCheckPoint.position, Data.GroundCheckRadius);
             Gizmos.DrawWireSphere(interactableCheckPoint.position, Data.InteractCheckRadius);
+        }
+
+        internal void SetPosition(Transform point)
+        {
+            characterController.enabled = false;
+            characterController.transform.position = point.position;
+            characterController.transform.rotation = point.rotation;
+            characterController.enabled = true;
         }
     }
 }

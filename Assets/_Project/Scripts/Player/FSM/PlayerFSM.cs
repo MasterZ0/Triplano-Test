@@ -25,7 +25,7 @@ namespace TriplanoTest.Player.FSM
         {
             base.SwitchState<T>();
 
-            if (Controller.DebugMode)
+            if (Controller.Debug.LogStates)
             {
                 Debug.Log($"State: {CurrentState.GetType().Name}");
             }

@@ -9,6 +9,9 @@ namespace TriplanoTest.Player
     public sealed class PlayerAnimator : PlayerControllerComponent
     {
         [Header("Player Animator")]
+        [SerializeField] private SkinnedMeshRenderer[] skinnedMeshes;
+        [SerializeField] private Material defaultMaterial;
+        [SerializeField] private Material invisibleMaterial;
         [SerializeField] private Animator animator;
         [SerializeField] private Rig boxRig;
 
@@ -98,6 +101,17 @@ namespace TriplanoTest.Player
             {
                 rig.weight = Mathf.MoveTowards(rig.weight, targetWeight, 1f / duration * Time.deltaTime);
                 yield return null;
+            }
+        }
+
+        public void ShowPlayer() => SetMaterial(defaultMaterial);
+        public void HidePlayer() => SetMaterial(invisibleMaterial);
+        private void SetMaterial(Material newMaterial)
+        {
+            Material[] materials = new Material[1] { newMaterial };
+            foreach (SkinnedMeshRenderer skinnedMeshRenderer in skinnedMeshes)
+            {
+                skinnedMeshRenderer.material = newMaterial;
             }
         }
     }
