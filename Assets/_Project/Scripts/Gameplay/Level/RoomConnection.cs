@@ -24,10 +24,9 @@ namespace TriplanoTest.Gameplay.Level
             if (!string.IsNullOrEmpty(connectionName))
             {
                 name += $"[{connectionName}]";
-
                 string nextLevelName = nextLevel.ToString();
 
-                if (!string.IsNullOrEmpty(nextLevelName))
+                if (nextLevelName != "[]")
                 {
                     nextLevelName = Regex.Replace(nextLevelName, @"\[\w+\]", string.Empty);
 

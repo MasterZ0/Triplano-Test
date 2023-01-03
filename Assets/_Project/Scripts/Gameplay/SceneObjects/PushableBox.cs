@@ -4,12 +4,11 @@ using UnityEngine;
 namespace TriplanoTest.Gameplay
 {
     /// <summary>
-    /// Note to developers: Please describe what this MonoBehaviour does.
+    /// Logic to move the box
     /// </summary>
     public class PushableBox : MonoBehaviour, IPushable
     {
         [Header("PushableBox")] 
-        [SerializeField] private float moveDistance = 0.5f;
         [SerializeField] private LayerMask scenary;
         [SerializeField] private new Rigidbody rigidbody;
         [SerializeField] private BoxCollider boxCollider;
@@ -19,6 +18,8 @@ namespace TriplanoTest.Gameplay
 
         private Vector3 targetPosition;
         private float speed;
+
+        private float MoveDistance => GameData.General.BoxMoveDistance;
 
         /// <returns> Nearest edge </returns>
         public Vector3 GetHoldPoint(Transform holderPivot, out Vector3 direction)
@@ -60,11 +61,10 @@ namespace TriplanoTest.Gameplay
             if (!CanMoveInAxis(direction))
                 return false;
 
-            //rigidbody.isKinematic = true;
             IsMoving = true;
             this.speed = speed;
             // Move the box by the distanceMoved vector
-            targetPosition = transform.position + direction * moveDistance;
+            targetPosition = transform.position + direction * MoveDistance;
 
             return true;
         }
@@ -73,7 +73,7 @@ namespace TriplanoTest.Gameplay
         {
             // Do a BoxCast from the closest face
             Vector3 start = transform.position + boxCollider.center;
-            RaycastHit[] cols = Physics.BoxCastAll(start, boxCollider.size / 2, direction, transform.rotation, moveDistance, scenary);
+            RaycastHit[] cols = Physics.BoxCastAll(start, boxCollider.size / 2, direction, transform.rotation, MoveDistance, scenary);
 
             foreach (RaycastHit col in cols)
             {
@@ -99,7 +99,6 @@ namespace TriplanoTest.Gameplay
             {
                 transform.position = targetPosition;
                 IsMoving = false;
-                //rigidbody.isKinematic = false;
             }
         }
 

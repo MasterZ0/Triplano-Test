@@ -5,14 +5,13 @@ using UnityEngine;
 namespace TriplanoTest.Data
 {
     /// <summary>
-    /// Note to developers: Please describe what this class does.
+    /// Store all game datas
     /// </summary>
     [CreateAssetMenu(menuName = MenuPath.Data + "Game", fileName = "New" + nameof(GameData))]
     public class GameData : ScriptableObject, IHasIcon
     {
         [Header("Game Data")]
         [SerializeField] private PlayerData player;
-        [SerializeField] private PlayerData player22;
         [SerializeField] private GeneralData general;
 
         public static PlayerData Player => Instance.player;
