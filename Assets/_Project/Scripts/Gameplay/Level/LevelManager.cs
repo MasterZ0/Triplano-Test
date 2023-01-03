@@ -9,6 +9,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 using TriplanoTest.Shared.ExtensionMethods;
 using TriplanoTest.ApplicationManager;
 using System;
+using TriplanoTest.Persistence;
 
 namespace TriplanoTest.Gameplay.Level
 {
@@ -116,6 +117,7 @@ namespace TriplanoTest.Gameplay.Level
 
             yield return UnloadCurrentScene();
 
+            PersistenceManager.ClearData();
             GameManager.SceneLoader.LoadScene(scene);
         }
     }

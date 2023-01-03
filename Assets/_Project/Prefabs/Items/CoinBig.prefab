@@ -54,6 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3957068743223925192}
+  - component: {fileID: 1120680247056456733}
   - component: {fileID: 8592573397136883291}
   - component: {fileID: 5722304169690546728}
   - component: {fileID: 7320993580782186649}
@@ -81,6 +82,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1120680247056456733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2034816492022749639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ce222ef14786c842b8c9d0e71d85d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveOnDestroy: 1
+  defaultState: 1
 --- !u!114 &8592573397136883291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1003a1fd63e1e3241b8cbec64aab86d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activationStatea: {fileID: 1120680247056456733}
   data: {fileID: 11400000, guid: 9978e640222a28443b806b886382dea0, type: 2}
   colorProperty: _Color
   renderer: {fileID: 4171178113672141979}

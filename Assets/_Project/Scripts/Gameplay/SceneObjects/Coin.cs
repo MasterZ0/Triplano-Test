@@ -1,5 +1,5 @@
-﻿using TriplanoTest.Data;
-using TriplanoTest.ObjectPooling;
+﻿using TriplanoTest.Persistence;
+using TriplanoTest.Data;
 using UnityEngine;
 
 namespace TriplanoTest.Gameplay
@@ -7,6 +7,7 @@ namespace TriplanoTest.Gameplay
     public class Coin : MonoBehaviour
     {
         [SerializeField] private CoinData data;
+        [SerializeField] private ActivationState activationStatea;
         [Space]
         [Tooltip("You can see properties in inspector by debug like \"_UnlitColor\"")]
         [SerializeField] private string colorProperty = "_Color";
@@ -21,8 +22,8 @@ namespace TriplanoTest.Gameplay
         {
             ICollector collector = other.attachedRigidbody.GetComponent<ICollector>();
             collector.AddCoin(data.Value);
-
-            this.ReturnToPool();
+            activationStatea.SetState(false);
+            gameObject.SetActive(false);
         }
     }
 }
