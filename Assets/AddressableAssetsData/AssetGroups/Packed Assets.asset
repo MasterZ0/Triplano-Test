@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Packed Assets
+  m_EditorClassIdentifier: 
+  m_GroupName: Packed Assets
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c85ca542a1d498e4989899ace5bdf19d
+  m_SerializeEntries:
+  - m_GUID: 9fc0d4010bbf28b4594072e72b8655ab
+    m_Address: Assets/_Project/Scenes/Victory.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene
+  - m_GUID: 372e3dbda9fc4ed4abf4a719bb63dc95
+    m_Address: Assets/_Project/Scenes/Stage 02.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene
+  - m_GUID: 2e037e52a7759b840997c9c69ecf2463
+    m_Address: Assets/_Project/Scenes/Stage 01.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene
+  - m_GUID: 4e3c693c5fed7e346ae4759b5a304f4a
+    m_Address: Assets/_Project/Scenes/Gameplay.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Scene
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0036f7f3a13d004449817a4c1dc11d22, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 80da3eee0b579864d96cbfc29ec4e951, type: 2}
+    - {fileID: 11400000, guid: 6c928c5bdcd6d02479cf46dbcea98456, type: 2}

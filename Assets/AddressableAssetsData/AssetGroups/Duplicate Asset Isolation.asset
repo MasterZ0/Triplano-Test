@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: 
+  m_GroupName: Duplicate Asset Isolation
+  m_Data:
+    m_SerializedData: []
+  m_GUID: bbd72280ffab5e64c9f17091c7c9c39b
+  m_SerializeEntries:
+  - m_GUID: 074aa59ed0d93c54eb3ca8104cffba69
+    m_Address: Assets/_Project/OpenSansRegular SDF.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 68e6db2ebdc24f95958faec2be5558d6
+    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e3265ab4bf004d28a9537516768c1c75
+    m_Address: Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f62b52b2d4b721742a0bc5c6b4db468d
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/Materials/EthanWhite.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3e05af67815b28c4295aa2be41d4fb3d
+    m_Address: Assets/_Project/Art/Water.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b8026087e763b7549b566e1580074253
+    m_Address: Assets/_Project/Art/WaterParticle.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 76ff537c8e1a84345868e6aeee938ab3
+    m_Address: Assets/Standard Assets/Prototyping/Materials/NavyGrid.mat
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b235179bd2a63d1468dd430670338c55
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/Models/Ethan.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 865b5b0bc061fb849b76b7326314907e
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/Animator/Player.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3bd34bfdaeae9bd4c8cae8dcc6c53fe7
+    m_Address: Assets/_Project/Data/Events/Victory.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9aeab08ee9d69ab4785d6a6883232950
+    m_Address: Assets/_Project/Data/Events/GuardFoundPlayer.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3b5b7be0f2332c24f89a2af018daa62d
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/Textures/EthanNormals.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f3b9708107567c84cb7357fedd161e6c
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Air_Jump.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ff591592c7ac6014b9306f17d5fbc22f
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Forward_Left.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 86e4aa9207c9e2740b6ace599d659c05
+    m_Address: Assets/Standard Assets/Prototyping/Textures/SwatchNavyAlbedo.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7df438c2f2b8b0a4babdf8acf0ed4a37
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Crouch_Walk.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 210f8a64e80e556409c9ac3ed6a924b3
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Air_Fall_Loop.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5868ad6496220be49980504d5bcbfc9b
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Crouch.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d30b7e468562c604592c212ecf3d1207
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Standing_Walk.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 61c84556bf5d9634594ced136bb4ef55
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Backward_Left.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 346af066be462424485eb25a41f747e0
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Right.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a196fd6788131ec459bfb26012466fc1
+    m_Address: Assets/Standard Assets/Prototyping/Textures/GridEmissive.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a238c1f7dcaccef42963ed9896f2e7c7
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Standing_Run.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4e2f32e9a1fefc24092337ae061f3dbc
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/Textures/EthanOcclusion.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c88e69e942cf79540a6c79d8fa40d630
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Standing_Idle.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1ccecd9b89b8a4f14bfb64f29ddfcc81
+    m_Address: Packages/com.unity.probuilder/Content/Shader/StandardVertexColor.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f9e09bbbb10a98f42994975e2bf385e0
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Backward.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e0e32e2e75c679f41a5c603cd73f1a8c
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Air_Fall_Transition.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d65ae37eca12ba447a3419edae2020a4
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Forward_Right.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f699f22fcff351849b0cc066332de7ac
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Backward_Right.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 720f308f0b4d8a446afa58fc7a9cdfc6
+    m_Address: Assets/Standard Assets/Characters/ThirdPersonCharacter/CustomAnimations/Player@Walk_Left.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9b0ff318a1ecdf44080790093596c76e
+    m_Address: Assets/_Project/Data/Audio/Step.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e9714160ce34f2b4ab63ff8c27bd68e1
+    m_Address: Assets/Standard Assets/Audio/Footstep04.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8bc94ec6ed537e743b481638bdcd503d
+    m_Address: Assets/Standard Assets/Audio/Footstep02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 42e65e088b3f4374e851b8dbd38f3df9
+    m_Address: Assets/Standard Assets/Audio/Footstep01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a9383dda6cabc047b7a297602e93eb4
+    m_Address: Assets/Standard Assets/Audio/Footstep03.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0036f7f3a13d004449817a4c1dc11d22, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 19d65af06ed60c34d8b39eaffb79c76e, type: 2}
+    - {fileID: 11400000, guid: 892caa2c92835ae4c844d9ac9a5108f8, type: 2}
