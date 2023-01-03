@@ -1,92 +1,78 @@
 # Triplano Test
 
+## Summary
 
+This project is a replica of two levels of The Legend of Zelda: Ocarina of Time, developed in Unity. The player controls the character in 3rd person and can perform actions such as walking, crouching, carrying boxes, collecting coins, and controlling the camera. The objective of the game is to complete two levels. In the first level, the player must solve a puzzle by moving boxes to escape the room. In the second level, the player must pass through guards undetected, otherwise they will be sent back to the first level. If the player successfully passes through the second level undetected, they will be greeted with a victory screen.
 
-## Getting started
+Links:
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- Download Build: https://drive.google.com/file/d/15pjh93y5KlZHvZeCx41oyqK6sW2oVSfj/view?usp=sharing
+- Test: https://docs.google.com/document/d/1yXnvXRF1gIWvYrJHC9842tk8v-cRhBZdg-7Me4P8a54/edit# 
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Inputs
 
-## Add your files
+To control the game, Unity's new Input System was used. The commands are:
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+* Player
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/MasterZ0/triplano-test.git
-git branch -M main
-git push -uf origin main
-```
+WASD - move
+Space - Jump
+Ctrl - Crouch
+E or Left Mouse Button - Interact with the boxes
+Move the mouse - Move the camera (First Level Only)
+I - Invisible (God Mode)
 
-## Integrate with your tools
+* UI
 
-- [ ] [Set up project integrations](https://gitlab.com/MasterZ0/triplano-test/-/settings/integrations)
+Esc - Pause and Cancel
+WASD - Navigate
+Enter - Submit
 
-## Collaborate with your team
+## Environment
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+The environment was built using ProBuilder and Unity's built-in basic 3D objects. The character, box, coins and sounds were included in the test files.
 
-## Test and Deploy
+## UI
 
-Use the built-in continuous integration in GitLab.
+There are 5 canvases present in the game
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+1 - Pause: In the gameplay scene
+2 - HUD: In the player's prefab
+3 - Victory Screen: In the victory scene
+4 - Dialog box: In the gameplay scene
+5 - Scene transition: In the application manager scene
 
-***
+## Editor Windows
 
-# Editing this README
+The "Triplano Test" menu can be viewed on the taskbar, where it is possible to open the windows.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+* Game Design: Used set game design values
+* Development Tools: Used to help center transforms
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## Level System
 
-## Name
-Choose a self-explaining name for your project.
+To create new levels you must create a prefab variant of the Prefab "Room Template". 
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+After creating a room you must add "Room Connections" referring to the connection of next rooms. 
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+Each connection has its own name reference, the player's spawn point, the trigger to access new scenes, the scene and connection the player will be sent after being triggered.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+## Scripts
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+* AI: Guard and vision detector logic
+* ApplicationManager: Control application and scene transition
+* Audio: Adapter to manages all audio and active instances
+* Data: All scriptable objects for design fit
+* Editor: Used to build game editor screens
+* Gameplay: All gameplay features, with coins, crates, room management, etc...
+* Inputs: Adapter to facilitate the use of inputs
+* ObjectPooling: Prefab resource management
+* Persistence: Used to save the state of crates and coins
+* Player: All player control architecture logic and your states
+* Shared: Extension methods, Utils, Project Paths and others...
+* StateMachine: State machine logic used in the player
+* UI: Generic UI Objects
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+## Conclusion
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Overall, this test was a great opportunity to showcase my abilities in game development using Unity. I am proud of the result I was able to achieve and believe that I have demonstrated a strong understanding of the necessary skills and techniques. 
