@@ -27,8 +27,7 @@ namespace TriplanoTest.AppEditor
         {
             if (mode == OpenSceneMode.Single && scene.buildIndex != 0) 
             {
-                OpenSceneMode openSceneMode = scene.buildIndex == -1 ? OpenSceneMode.AdditiveWithoutLoading : OpenSceneMode.Additive;
-                EditorSceneManager.OpenScene(ProjectPath.ApplicationManagerScene, openSceneMode);
+                EditorSceneManager.OpenScene(ProjectPath.ApplicationManagerScene, OpenSceneMode.Additive);
             }
         }
     }
