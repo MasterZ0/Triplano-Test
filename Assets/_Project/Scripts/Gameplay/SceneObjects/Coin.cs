@@ -7,7 +7,7 @@ namespace TriplanoTest.Gameplay
     public class Coin : MonoBehaviour
     {
         [SerializeField] private CoinData data;
-        [SerializeField] private ActivationState activationStatea;
+        [SerializeField] private ActivationState activationState;
         [Space]
         [Tooltip("You can see properties in inspector by debug like \"_UnlitColor\"")]
         [SerializeField] private string colorProperty = "_Color";
@@ -22,7 +22,7 @@ namespace TriplanoTest.Gameplay
         {
             ICollector collector = other.attachedRigidbody.GetComponent<ICollector>();
             collector.AddCoin(data.Value);
-            activationStatea.SetState(false);
+            activationState.SetState(false);
             gameObject.SetActive(false);
         }
     }
