@@ -1,5 +1,4 @@
-﻿using Mono.Cecil.Cil;
-using TriplanoTest.Shared.ExtensionMethods;
+﻿using TriplanoTest.Shared.ExtensionMethods;
 using UnityEngine;
 
 namespace TriplanoTest.Gameplay
