@@ -8,13 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/ApplicationManager.unity
     guid: bdfca4e7f59ccd14ba999791c4b6538a
-  - enabled: 1
-    path: Assets/_Project/Scenes/Stage 01.unity
-    guid: 2e037e52a7759b840997c9c69ecf2463
-  - enabled: 1
-    path: Assets/_Project/Scenes/Stage 02.unity
-    guid: 70c70967a3bf0cf45b57058ba6464db7
-  - enabled: 1
-    path: Assets/_Project/Scenes/Victory.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: d65dc55d8a7789e4aa74ac7e495f72fe,
+      type: 2}

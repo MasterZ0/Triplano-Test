@@ -58,7 +58,6 @@ namespace TriplanoTest.Shared.ExtensionMethods
 
         public static IEnumerator PlayCoroutine(this Animator animator, string animation, int layerIndex = 0)
         {
-
             animator.Play(animation);
             yield return new WaitForEndOfFrame();
 
@@ -66,6 +65,18 @@ namespace TriplanoTest.Shared.ExtensionMethods
             float animationDuration = info.length;
 
             yield return new WaitForSeconds(animationDuration);
+            yield return new WaitForEndOfFrame();
+        }
+
+        public static IEnumerator PlayCoroutineRealtime(this Animator animator, string animation, int layerIndex = 0)
+        {
+            animator.Play(animation);
+            yield return new WaitForEndOfFrame();
+
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(layerIndex);
+            float animationDuration = info.length;
+
+            yield return new WaitForSecondsRealtime(animationDuration);
             yield return new WaitForEndOfFrame();
         }
     }

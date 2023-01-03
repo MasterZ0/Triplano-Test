@@ -61,7 +61,7 @@ namespace TriplanoTest.AppEditor
             {
                 if (field.GetValue(mainData) is ScriptableObject asset)
                 {
-                    string segment = asset.name.GetNiceString();
+                    string segment = field.Name.GetNiceString();
                     Add(drawPath + "/" + segment, asset);
                 }
             }

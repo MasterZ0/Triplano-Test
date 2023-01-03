@@ -26,20 +26,22 @@ namespace TriplanoTest.AI
 
         protected Vector3[] GetBoundsEdges(Collider targetCol) // TODO: Improve it
         {
-            return new Vector3[3] 
+            return new Vector3[7] 
             { 
                 targetCol.bounds.center,
+                new Vector3(targetCol.bounds.min.x, targetCol.bounds.center.y, targetCol.bounds.center.z),
+                new Vector3(targetCol.bounds.max.x, targetCol.bounds.center.y, targetCol.bounds.center.z),
                 new Vector3(targetCol.bounds.center.x, targetCol.bounds.max.y, targetCol.bounds.center.z),
-                new Vector3(targetCol.bounds.center.x, targetCol.bounds.min.y, targetCol.bounds.center.z)
+                new Vector3(targetCol.bounds.center.x, targetCol.bounds.min.y, targetCol.bounds.center.z),
+                new Vector3(targetCol.bounds.center.x, targetCol.bounds.center.y, targetCol.bounds.min.z),
+                new Vector3(targetCol.bounds.center.x, targetCol.bounds.center.y, targetCol.bounds.max.z)
             };
         }
 
         private bool CanSeePosition(Vector3 target)
         {
-            Vector2 direction = target - transform.position;
-            float distance = Vector2.Distance(transform.position, target);
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, distance, obstaclesLayer);
-            return !hit;
+            Vector3 direction = target - transform.position;
+            return !Physics.Raycast(transform.position, direction.normalized, direction.magnitude, obstaclesLayer);
         }
     }
 }

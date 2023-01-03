@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/_Project/UI%20Toolkit/DevelopmentToolsWindow.uss?fileID=7433441132597879392&amp;guid=cd05d9efd4eade34e8cc4a8e5157b2dc&amp;type=3#DevelopmentToolsWindow" />
+    <Style src="project://database/Assets/bt.uss?fileID=7433441132597879392&amp;guid=1c230cabddcb39340a2b78fc24e99c62&amp;type=3#bt" />
+    <ui:Label text="Level Design Tools" display-tooltip-when-elided="true" name="mainTitle" class="title" style="-unity-text-align: upper-center;" />
+</ui:UXML>

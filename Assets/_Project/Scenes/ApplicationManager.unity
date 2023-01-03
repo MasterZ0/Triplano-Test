@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 465660710}
   - component: {fileID: 465660711}
   m_Layer: 0
-  m_Name: ObjectPooler
+  m_Name: ObjectPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,8 +308,8 @@ MonoBehaviour:
     unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 6789707350589343574}
-          m_TargetAssemblyTypeName: TriplanoTest.ApplicationManager.GameManager,
+        - m_Target: {fileID: 6789707350589343575}
+          m_TargetAssemblyTypeName: TriplanoTest.ApplicationManager.SceneLoader,
             TriplanoTest.ApplicationManager
           m_MethodName: OnFadeInEnd
           m_Mode: 1
@@ -325,8 +325,8 @@ MonoBehaviour:
     unityEvent:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 6789707350589343574}
-          m_TargetAssemblyTypeName: TriplanoTest.ApplicationManager.GameManager,
+        - m_Target: {fileID: 6789707350589343575}
+          m_TargetAssemblyTypeName: TriplanoTest.ApplicationManager.SceneLoader,
             TriplanoTest.ApplicationManager
           m_MethodName: OnFadeOutEnd
           m_Mode: 1
@@ -625,11 +625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c8f113f4b4fff46a57159cc391ff1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionAnimator: {fileID: 1494829047}
   sceneLoader: {fileID: 6789707350589343575}
   gameData: {fileID: 11400000, guid: c801ecda280433e47bdacab7cc17cf16, type: 2}
-  onFadeOutEnd: {fileID: 11400000, guid: 887dc7d683448d14e83a0fada34e9823, type: 2}
-  onFadeInEnd: {fileID: 11400000, guid: b4d4dbfd05c9cbb48ad9e5dc04e004f3, type: 2}
 --- !u!114 &6789707350589343575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,6 +639,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73fd8ec30e582d4abadf6f53f345ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplay:
+    m_AssetGUID: 4e3c693c5fed7e346ae4759b5a304f4a
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  victory:
+    m_AssetGUID: 9fc0d4010bbf28b4594072e72b8655ab
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  transitionAnimator: {fileID: 1494829047}
+  fadeIn: FadeIn
+  fadeOut: FadeOut
+  onFadeOutEnd: {fileID: 11400000, guid: 887dc7d683448d14e83a0fada34e9823, type: 2}
+  onFadeInEnd: {fileID: 11400000, guid: b4d4dbfd05c9cbb48ad9e5dc04e004f3, type: 2}
 --- !u!114 &8665041871320639284
 MonoBehaviour:
   m_ObjectHideFlags: 0

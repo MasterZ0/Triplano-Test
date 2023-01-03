@@ -48,18 +48,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 5fef304d84ca2b045a442753fdee3753, type: 2}
-  OnFoundPlayer: {fileID: 11400000, guid: 47375e7355f141e4f9ea28cd7ad395c6, type: 2}
+  onFoundPlayer: {fileID: 11400000, guid: 9aeab08ee9d69ab4785d6a6883232950, type: 2}
   animator: {fileID: 3691418810187428721}
   viewDetections:
   - {fileID: 7297089859811928908}
   - {fileID: 7216221371569281290}
   idle: Idle
   walk: Walk
+  speedMultiplierParameter: SpeedMultiplier
   patrolPoints:
-  - {fileID: 5079634487455857326}
-  - {fileID: 795465520949899304}
-  - {fileID: 6140985902003690459}
-  - {fileID: 4583228258224960442}
+  - stopWhenReaching: 1
+    point: {fileID: 5079634487455857326}
+  - stopWhenReaching: 1
+    point: {fileID: 795465520949899304}
+  - stopWhenReaching: 1
+    point: {fileID: 6140985902003690459}
+  - stopWhenReaching: 1
+    point: {fileID: 4583228258224960442}
 --- !u!1 &289642583467918226
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +221,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5884798578036145079
 GameObject:

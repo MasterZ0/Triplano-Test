@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using TriplanoTest.Shared.Utils;
-using TriplanoTest.Gameplay;
+using TriplanoTest.Gameplay;    
 
 namespace TriplanoTest.Player
 {

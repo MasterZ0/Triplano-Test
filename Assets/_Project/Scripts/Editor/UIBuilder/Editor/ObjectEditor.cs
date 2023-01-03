@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using System.Reflection;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,6 +15,9 @@ namespace TriplanoTest.UIBuilder.Editor
     {
         public override VisualElement CreateInspectorGUI()
         {
+            if (target.GetType().GetCustomAttribute<DisplayUIElementsAttribute>() == null)
+                return null;
+
             return EditorBuilder.CreateInspector(this);
         }
     }

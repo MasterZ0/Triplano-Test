@@ -15,3 +15,4 @@ MonoBehaviour:
   moveSpeed: 3
   waitTime: 3
   rotationSpeed: 6
+  animationSpeed: 1.5

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TriplanoTest.Data;
 using TriplanoTest.Shared;
@@ -15,9 +16,16 @@ namespace TriplanoTest.AI
     /// </summary>
     public class Guard : MonoBehaviour 
     {
+        [Serializable]
+        private class Waypoint
+        {
+            public bool stopWhenReaching = true;
+            public Transform point;
+        }
+
         [Header("Guard")]
         [SerializeField] private GuardData data;
-        [SerializeField] private GameEvent OnFoundPlayer;
+        [SerializeField] private GameEvent onFoundPlayer;
         [Space]
         [SerializeField] private Animator animator;
         [SerializeField] private ViewDetection[] viewDetections;
@@ -25,9 +33,10 @@ namespace TriplanoTest.AI
         [Header("Animation States")]
         [SerializeField] private string idle = "Idle";
         [SerializeField] private string walk = "Walk";
+        [SerializeField] private string speedMultiplierParameter = "SpeedMultiplier";
 
         [Header("Patrol Points")]
-        [SerializeField] private Transform[] patrolPoints;
+        [SerializeField] private Waypoint[] patrolPoints;
 
         private Transform player;
         private int currentPoint;
@@ -38,6 +47,7 @@ namespace TriplanoTest.AI
 
         private void OnEnable()
         {
+            animator.SetFloat(speedMultiplierParameter, data.AnimationSpeed);
             // Reset
             transform.localPosition = Vector2.zero;
             transform.localRotation = Quaternion.identity;
@@ -67,15 +77,20 @@ namespace TriplanoTest.AI
 
         private void Patrol()
         {
-            Vector3 targetPosition = patrolPoints[currentPoint].position;
+            Vector3 targetPosition = patrolPoints[currentPoint].point.position;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, data.MoveSpeed * Time.fixedDeltaTime);
 
             LookAt(targetPosition);
 
             if (Vector3.Distance(transform.position, targetPosition) <= Threshold)
             {
+                bool stop = patrolPoints[currentPoint].stopWhenReaching;
                 currentPoint = currentPoint.Navigate(patrolPoints.Length, true);
-                StartCoroutine(WaitDelay());
+
+                if (stop)
+                {
+                    StartCoroutine(WaitDelay());
+                }
             }
         }
 
@@ -97,7 +112,7 @@ namespace TriplanoTest.AI
                 if (detection.FindTargetInsideRange(out player))
                 {
                     StopAllCoroutines();
-                    OnFoundPlayer.Invoke();
+                    onFoundPlayer.Invoke();
                     Play(idle);
 
                     foundPlayer = true;

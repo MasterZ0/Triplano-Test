@@ -12,12 +12,12 @@ namespace TriplanoTest.ApplicationManager
 
         public void OnChanceScene()
         {
-            GameManager.RequestLoadScene(scene);
+            GameManager.SceneLoader.LoadScene(scene);
         }
 
         public void OnReloadScene()
         {
-            GameManager.RequestReloadScene();
+            GameManager.SceneLoader.RequestReloadScene();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using TriplanoTest.Gameplay.Level;
 using TriplanoTest.Inputs;
 using TriplanoTest.Shared;
 using UnityEngine;
@@ -31,6 +32,26 @@ namespace TriplanoTest.Gameplay
             uiInputs.Dispose();
         }
 
+        public void OnReload() => LevelManager.Reload();
+
+        public void OnResume()
+        {
+            if (!paused) // The keyboard can call you twice at the same time, due to Esc and Cancel allow you to pause the game
+                return;
+
+            EventSystem.current.SetSelectedGameObject(null);
+            PauseGame(false);
+        }
+
+        public void OnExit()
+        {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+            Application.Quit();
+            #endif
+        }
+
         private void OnPressPause()
         {
             if (paused)
@@ -40,15 +61,6 @@ namespace TriplanoTest.Gameplay
             }
 
             PauseGame(true);
-        }
-
-        public void OnResume()
-        {
-            if (!paused) // The keyboard can call you twice at the same time, due to Esc and Cancel allow you to pause the game
-                return;
-
-            EventSystem.current.SetSelectedGameObject(null);
-            PauseGame(false);
         }
 
         private void PauseGame(bool pause)
@@ -70,15 +82,6 @@ namespace TriplanoTest.Gameplay
         {
             yield return new WaitForEndOfFrame();
             mainMenuBtn.Select();
-        }
-
-        public void OnExit()
-        {
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #else
-            Application.Quit();
-            #endif
         }
     }
 }

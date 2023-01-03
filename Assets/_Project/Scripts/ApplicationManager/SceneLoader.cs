@@ -3,15 +3,26 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
+using TriplanoTest.Shared;
+using TriplanoTest.UIBuilder;
+using UnityEngine.EventSystems;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using TriplanoTest.Shared.ExtensionMethods;
+using System.Runtime.CompilerServices;
 
 namespace TriplanoTest.ApplicationManager
 {
     public enum GameScene
     {
-        ApplicationManager,
-        Intro,
-        MainMenu,
-        Gameplay
+        Gameplay,
+        Victory
+    }
+
+    public interface ISubSceneController
+    {
+        void Unload();
     }
 
     /// <summary>
@@ -19,29 +30,46 @@ namespace TriplanoTest.ApplicationManager
     /// </summary>
     public class SceneLoader : MonoBehaviour
     {
-        private GameScene currentScene;
-        private bool loading; // Safe variable
+        [Header("Scene Loader")]
+        [AssetReferenceUILabelRestriction(Constants.Scene)]
+        [SerializeField] private AssetReference gameplay;
+        [SerializeField] private AssetReference victory;
+
+        [Header("Fade")]
+        [SerializeField] private Animator transitionAnimator;
+        [SerializeField] private string fadeIn = "FadeIn";
+        [SerializeField] private string fadeOut = "FadeOut";
+
+        [Header("Events")]
+        [SerializeField] private GameEvent onFadeOutEnd;
+        [SerializeField] private GameEvent onFadeInEnd;
+
+        private GameScene? nextScene = null;
+
+        private SceneInstance currentScene;
+        private bool loading = true;
 
         /// <summary>
-        /// Check if there is any scene loaded, if is not, load the MainMenu
+        /// Check if there is any scene loaded, if is not, load the Gameplay
         /// </summary>
-        public void LoadApplication(Action onFinish)
+        public void LoadApplication()
         {
-            Scene activeScene = SceneManager.GetActiveScene();
-
-            if (activeScene == SceneManager.GetSceneByBuildIndex(0) && SceneManager.sceneCount == 1)
+            #if UNITY_EDITOR
+            if (SceneManager.sceneCount > 1)
             {
-                currentScene = GameScene.Intro;
-                loading = true;
-                StartCoroutine(LoadCurrentScene(onFinish));
+                LoadFinish();
                 return;
             }
+            #endif
 
-            currentScene = (GameScene)activeScene.buildIndex;
-            onFinish();
+            nextScene = GameScene.Gameplay;
+            StartCoroutine(LoadSceneAsync(GameScene.Gameplay));
         }
 
-        public void ReloadScene(Action onFinish)
+        public void RequestReloadScene() => LoadScene(null);
+
+        /// <summary> Fade Out Start </summary>
+        public void LoadScene(GameScene? scene)
         {
             if (loading)
             {
@@ -49,73 +77,88 @@ namespace TriplanoTest.ApplicationManager
             }
 
             loading = true;
-            StartCoroutine(ReloadCurrentScene(onFinish));
+            nextScene = scene;
+            transitionAnimator.Play(fadeOut);
+            EventSystem.current.SetSelectedGameObject(null);
         }
 
-        private IEnumerator ReloadCurrentScene(Action onFinish)
+        public void OnFadeInEnd()
         {
-            ObjectPool.ReturnAllToPool();
-
-            string currentScene = SceneManager.GetActiveScene().name; // After unload the struct changes, use string
-
-            // Unload current
-            AsyncOperation operation = SceneManager.UnloadSceneAsync(currentScene, UnloadSceneOptions.None);
-            yield return new WaitUntil(() => operation.isDone);
-
-            operation = SceneManager.LoadSceneAsync(currentScene, LoadSceneMode.Additive);
-            yield return new WaitUntil(() => operation.isDone);
-
-            GC.Collect();
-
-            Scene activeScene = SceneManager.GetSceneByName(currentScene);
-            SceneManager.SetActiveScene(activeScene);
-
-            onFinish();
-            loading = false;
+            onFadeInEnd.Invoke();
         }
 
-
-        public void LoadScene(GameScene gameScene, Action onFinish)
+        public void OnFadeOutEnd()
         {
-            if (loading)
+            onFadeOutEnd.Invoke();
+
+            if (!nextScene.HasValue)
             {
-                throw new ApplicationException("There is already a scene loading process in progress");
+                nextScene = currentScene.Scene.name.ConvertToEnum<GameScene>();
             }
 
-            loading = true;
-            StartCoroutine(LoadNextScene(gameScene, onFinish));
+            StartCoroutine(LoadNextAsyn());
+
+            Time.timeScale = 1f;
         }
 
-        #region Private Methods
-        private IEnumerator LoadNextScene(GameScene gameScene, Action onFinish)
+        private IEnumerator LoadNextAsyn()
         {
+            #if UNITY_EDITOR
+            if (currentScene.Scene.name == null)
+            {
+                Scene activeScene = SceneManager.GetActiveScene();
+                yield return SceneManager.UnloadSceneAsync(activeScene);
+
+                ObjectPool.ReturnAllToPool();
+
+                yield return LoadSceneAsync(nextScene.Value);
+                yield break;
+            }
+            #endif
+
+            yield return UnloadSceneAsync(currentScene);
+
             ObjectPool.ReturnAllToPool();
 
-            // Unload current
-            string activeScene = SceneManager.GetActiveScene().name; // Can be a test scene
-            AsyncOperation loadSceneAsync = SceneManager.UnloadSceneAsync(activeScene);
-            yield return new WaitUntil(() => loadSceneAsync.isDone);
-
-            currentScene = gameScene;
-            GC.Collect();
-
-            // Load next
-            StartCoroutine(LoadCurrentScene(onFinish));
+            yield return LoadSceneAsync(nextScene.Value);
         }
 
-        private IEnumerator LoadCurrentScene(Action onFinish)
+        private IEnumerator UnloadSceneAsync(SceneInstance scene)
         {
-            AsyncOperation loadSceneAsync = SceneManager.LoadSceneAsync(currentScene.ToString(), LoadSceneMode.Additive);
-            yield return new WaitUntil(() => loadSceneAsync.isDone);
+            AsyncOperationHandle<SceneInstance> loadOperation = Addressables.UnloadSceneAsync(scene);
+            yield return new WaitUntil(() => loadOperation.IsDone);
+        }
 
-            Scene loadedScene = SceneManager.GetSceneByName(currentScene.ToString());
-            SceneManager.SetActiveScene(loadedScene);
+        private IEnumerator LoadSceneAsync(GameScene gameScene)
+        {
+            // Get asset
+            AssetReference newScene =  gameScene switch
+            {
+                GameScene.Victory => victory,
+                GameScene.Gameplay => gameplay,
+                _ => throw new NotImplementedException(),
+            };
 
+            // Load new scene
+            AsyncOperationHandle<SceneInstance> loadOperation = Addressables.LoadSceneAsync(newScene, LoadSceneMode.Additive);
+            yield return new WaitUntil(() => loadOperation.IsDone);
+
+            // Set as active scene
+            currentScene = loadOperation.Result;        
+            SceneManager.SetActiveScene(currentScene.Scene);
+
+            // Clean memory and finish
+            GC.Collect();
             yield return new WaitForEndOfFrame();
-
-            onFinish();
-            loading = false;
+            LoadFinish();
         }
-        #endregion
+
+        /// <summary> Start Fade In </summary>
+        private void LoadFinish()
+        {
+            nextScene = null;
+            loading = false;
+            transitionAnimator.Play(fadeIn);
+        }
     }
 }

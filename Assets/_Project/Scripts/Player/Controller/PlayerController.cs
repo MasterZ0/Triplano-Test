@@ -81,6 +81,5 @@ namespace TriplanoTest.Player
         {
             playerPhysics.DrawGizmos();
         }
-
     }
 }

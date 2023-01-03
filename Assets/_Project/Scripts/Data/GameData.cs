@@ -12,6 +12,7 @@ namespace TriplanoTest.Data
     {
         [Header("Game Data")]
         [SerializeField] private PlayerData player;
+        [SerializeField] private PlayerData player22;
         [SerializeField] private GeneralData general;
 
         public static PlayerData Player => Instance.player;

@@ -112,7 +112,6 @@ namespace TriplanoTest.ObjectPooling
                 {
                     if (!instance)
                     {
-                        Debug.LogError(NullError);
                         pool.ActiveInstances.Remove(instance);
                         continue;
                     }
