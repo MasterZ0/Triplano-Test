@@ -6,8 +6,9 @@ This project is a replica of two levels of The Legend of Zelda: Ocarina of Time,
 
 Links:
 
-- Download Build: https://drive.google.com/file/d/15pjh93y5KlZHvZeCx41oyqK6sW2oVSfj/view?usp=sharing
 - Test: https://docs.google.com/document/d/1yXnvXRF1gIWvYrJHC9842tk8v-cRhBZdg-7Me4P8a54/edit# 
+- Download Build: https://drive.google.com/file/d/15pjh93y5KlZHvZeCx41oyqK6sW2oVSfj/view?usp=sharing
+- Video: https://drive.google.com/file/d/1BV-ysWpMTnwIullQA48Nb6WUoDoNOQKc/view?usp=share_link
 
 ## Inputs
 
@@ -36,11 +37,11 @@ The environment was built using ProBuilder and Unity's built-in basic 3D objects
 
 There are 5 canvases present in the game
 
-1 - Pause: In the gameplay scene
-2 - HUD: In the player's prefab
-3 - Victory Screen: In the victory scene
-4 - Dialog box: In the gameplay scene
-5 - Scene transition: In the application manager scene
+- Pause: In the gameplay scene
+- HUD: In the player's prefab
+- Victory Screen: In the victory scene
+- Dialog box: In the gameplay scene
+- Scene transition: In the application manager scene
 
 ## Editor Windows
 
