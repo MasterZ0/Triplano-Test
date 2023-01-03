@@ -1,7 +1,6 @@
 using TriplanoTest.Shared.Utils;
 using System;
 using UnityEngine;
-using UnityEditor;
 
 namespace TriplanoTest.Shared.ExtensionMethods
 {
@@ -71,11 +70,6 @@ namespace TriplanoTest.Shared.ExtensionMethods
             }
 
             return shortName;
-        }
-
-        public static string NicifyVariableName(this string value)
-        {
-            return ObjectNames.NicifyVariableName(value);
         }
 
         public static string GetNiceString(this string value)
