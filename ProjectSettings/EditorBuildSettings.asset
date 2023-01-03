@@ -9,5 +9,4 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/ApplicationManager.unity
     guid: bdfca4e7f59ccd14ba999791c4b6538a
   m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: d65dc55d8a7789e4aa74ac7e495f72fe,
-      type: 2}
+    com.unity.addressableassets: {fileID: 11400000, guid: d65dc55d8a7789e4aa74ac7e495f72fe, type: 2}
