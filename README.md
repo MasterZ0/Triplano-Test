@@ -6,11 +6,11 @@ This project is a replica of two levels of The Legend of Zelda: Ocarina of Time,
 
 Links:
 
-- Test: https://docs.google.com/document/d/1yXnvXRF1gIWvYrJHC9842tk8v-cRhBZdg-7Me4P8a54/edit# 
+- [Download Game](https://drive.google.com/file/d/15pjh93y5KlZHvZeCx41oyqK6sW2oVSfj/view?usp=sharing)
 
+- [Video](https://drive.google.com/file/d/1BV-ysWpMTnwIullQA48Nb6WUoDoNOQKc/view?usp=share_link)
 
-- Download Build: https://drive.google.com/file/d/15pjh93y5KlZHvZeCx41oyqK6sW2oVSfj/view?usp=sharing
-- Video: https://drive.google.com/file/d/1BV-ysWpMTnwIullQA48Nb6WUoDoNOQKc/view?usp=share_link
+- [Original Stage - 56:23](https://youtu.be/mF9CxAulk04?t=3383)
 
 Stage 1
 
