@@ -7,8 +7,18 @@ This project is a replica of two levels of The Legend of Zelda: Ocarina of Time,
 Links:
 
 - Test: https://docs.google.com/document/d/1yXnvXRF1gIWvYrJHC9842tk8v-cRhBZdg-7Me4P8a54/edit# 
+
+
 - Download Build: https://drive.google.com/file/d/15pjh93y5KlZHvZeCx41oyqK6sW2oVSfj/view?usp=sharing
 - Video: https://drive.google.com/file/d/1BV-ysWpMTnwIullQA48Nb6WUoDoNOQKc/view?usp=share_link
+
+Stage 1
+
+![stage 1](https://user-images.githubusercontent.com/64444068/212126851-6f0f75c6-71a0-4d0d-a8dc-bd862aafb65c.gif)
+
+Stage 2
+
+![stage 2](https://user-images.githubusercontent.com/64444068/212129247-00f84b55-2821-46b8-a83b-3b0a52f11435.gif)
 
 ## Inputs
 
