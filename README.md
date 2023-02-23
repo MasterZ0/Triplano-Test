@@ -27,16 +27,23 @@ To control the game, Unity's new Input System was used. The commands are:
 * Player
 
 WASD - move
+
 Space - Jump
+
 Ctrl - Crouch
+
 E or Left Mouse Button - Interact with the boxes
+
 Move the mouse - Move the camera (First Level Only)
+
 I - Invisible (God Mode)
 
 * UI
 
 Esc - Pause and Cancel
+
 WASD - Navigate
+
 Enter - Submit
 
 ## Environment
